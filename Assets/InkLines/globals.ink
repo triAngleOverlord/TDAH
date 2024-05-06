@@ -1,0 +1,1 @@
+VAR narrativePoint=0
