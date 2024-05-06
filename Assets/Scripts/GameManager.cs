@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [Header("Stats")]
     public static int spoonsINT;
     public static float moodINT;
-    public static float peeINT;
+    public static float momentumINT;
+    public static float gainSpoonsRate;
 
     [Header("Buttons")]
     [SerializeField] private GameObject lookUpBTN;
@@ -29,6 +30,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI hourHand;
     [SerializeField] TextMeshProUGUI minuteHand;
     public static float timeRate;
+
+    [Header("UI Elements")]
+    public GameObject momentumBar_UI;
+    public TextMeshProUGUI spoon_UI;
+
+    public bool taskActive;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,16 +50,22 @@ public class GameManager : MonoBehaviour
         timeRate = 0.001f;
         position = 0;
         hour = 14;
+
+        momentumBar_UI.SetActive(false);
+        gainSpoonsRate = 1f;
+        spoonsINT = 100;
     }
     void Start()
     {
         InvokeRepeating("changeTheTime", 0.01f, 1f);
+        StartCoroutine(momentumBar());
+        StartCoroutine(spoonRate());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 
     void changeTheTime()
@@ -89,6 +102,35 @@ public class GameManager : MonoBehaviour
             minuteHand.text = new string(minute.ToString());
         }
 
+    }
+
+    public IEnumerator momentumBar()
+    {
+        if (momentumINT > 0 || momentumINT ==0)
+            momentumINT--;
+        else if (momentumINT < 0)
+            momentumINT = 0;
+        else if (momentumINT > 0)
+            momentumINT = 50;
+        yield return new WaitForSecondsRealtime(0.5f);
+        
+        StartCoroutine(momentumBar());
+    }
+
+    public IEnumerator spoonRate()
+    {
+        if (spoonsINT < 0)
+                spoonsINT = 0;
+        if (taskActive == false)
+        {
+            if (spoonsINT > 0 || spoonsINT ==0)
+                spoonsINT++;
+        }
+            spoon_UI.text = new string(spoonsINT.ToString());
+            yield return new WaitForSeconds(gainSpoonsRate);
+        
+        
+        StartCoroutine (spoonRate());
     }
 
     public void changeClockSpeed()
