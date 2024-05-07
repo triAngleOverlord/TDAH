@@ -7,6 +7,7 @@ public class taskButtons : MonoBehaviour
     public GameObject momentumBar;
     public int hardSpoonCost;
     public int softSpoonCost;
+    [SerializeField] private Animator animator;
     void Start()
     {
         momentumBar = GameManager.Instance.momentumBar_UI;
@@ -17,6 +18,7 @@ public class taskButtons : MonoBehaviour
     {
         if (GameManager.Instance.taskActive == true && GameManager.spoonsINT !=0)
         {
+            
             if(Input.GetKeyDown("space"))
             {
                 if (GameManager.momentumINT < 33)
@@ -35,6 +37,19 @@ public class taskButtons : MonoBehaviour
     {
             GameManager.Instance.taskActive = true;
             momentumBar.SetActive(true);
-      
+            animator.Play("writing_01");
+
+    }
+
+    public void deactivateTask()
+    {
+        GameManager.Instance.taskActive = false;
+        momentumBar.SetActive(false);
+        animator.Play("downDefault");
+    }
+
+    public void takeSpoonsAway()
+    {
+        GameManager.spoonsINT -= softSpoonCost;
     }
 }
