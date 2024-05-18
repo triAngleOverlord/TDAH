@@ -14,9 +14,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Stats")]
     public static int spoonsINT;
-    public static float moodINT;
+    public static float spoonRateINT;
+    public float moodINT;
+    public float moodRateINT;
+    public MoodStates moodState;
     public static float momentumINT;
-    public static float gainSpoonsRate;
 
     [Header("Buttons")]
     [SerializeField] private GameObject lookUpBTN;
@@ -29,13 +31,21 @@ public class GameManager : MonoBehaviour
     public static float minute;
     [SerializeField] TextMeshProUGUI hourHand;
     [SerializeField] TextMeshProUGUI minuteHand;
+    [SerializeField] TextMeshProUGUI dayUI;
     public static float timeRate;
+    public static float day;
 
     [Header("UI Elements")]
     public GameObject momentumBar_UI;
     public TextMeshProUGUI spoon_UI;
 
     public bool taskActive;
+
+    public enum MoodStates
+    {
+        Happy, Neutral, Upset, Paralysis
+    }
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,14 +62,17 @@ public class GameManager : MonoBehaviour
         hour = 14;
 
         momentumBar_UI.SetActive(false);
-        gainSpoonsRate = 1f;
+        spoonRateINT = 1f;
         spoonsINT = 100;
+        moodINT = 10;
+        day = 1;
     }
     void Start()
     {
-        InvokeRepeating("changeTheTime", 0.01f, 1f);
+        InvokeRepeating("changeTheTime", 0.01f, 0.01f);
         StartCoroutine(momentumBar());
         StartCoroutine(spoonRate());
+        StartCoroutine(moodRate());
     }
 
     // Update is called once per frame
@@ -79,8 +92,9 @@ public class GameManager : MonoBehaviour
             if (hour == 24)
             {
                 hour = 0;
+                day++;
+                dayUI.text = new string(day.ToString());
             }
-
 
             if (hour < 10)
             {
@@ -127,10 +141,42 @@ public class GameManager : MonoBehaviour
                 spoonsINT++;
         }
             spoon_UI.text = new string(spoonsINT.ToString());
-            yield return new WaitForSeconds(gainSpoonsRate);
+            yield return new WaitForSeconds(spoonRateINT);
         
         
         StartCoroutine (spoonRate());
+    }
+
+    public IEnumerator moodRate()
+    {
+        if(moodINT < 0 || moodINT ==0)
+        {
+            moodState = MoodStates.Paralysis;
+            moodRateINT = 1f;
+            spoonRateINT = 1f;//
+        }
+        else if (moodINT < 3 && moodINT > 0)
+        {
+            moodState = MoodStates.Upset;
+            moodRateINT = 0.5f;
+            spoonRateINT = 1f;//
+        }
+        else if (moodINT < 6 && moodINT > 3)
+        {
+            moodState = MoodStates.Neutral;
+            moodRateINT = 0.2f;
+            spoonRateINT = 1f;//
+        }
+        else if ((moodINT==10 || moodINT < 10) && moodINT >6)
+        {
+            moodState = MoodStates.Happy;
+            moodRateINT = 0.1f;
+            spoonRateINT = 1f;//
+        }
+
+        moodINT -= moodRateINT;
+        yield return new WaitForSeconds(2);
+        StartCoroutine(moodRate());
     }
 
     public void changeClockSpeed()
