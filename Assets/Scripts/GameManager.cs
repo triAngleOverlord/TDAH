@@ -276,6 +276,8 @@ public class GameManager : MonoBehaviour
             lookDownBTN.SetActive(false);
             lookLeftBTN.SetActive(false);
             lookRightBTN.SetActive(false);
+            hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 625, 0);
+            minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 625, 0);
         }
         else if (position == 0)
         {
@@ -283,6 +285,8 @@ public class GameManager : MonoBehaviour
             lookDownBTN.SetActive(true);
             lookLeftBTN.SetActive(true);
             lookRightBTN.SetActive(true);
+            hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 500, 0);
+            minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 500, 0);
         }
     }
 }
