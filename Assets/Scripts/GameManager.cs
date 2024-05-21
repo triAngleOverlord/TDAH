@@ -267,4 +267,22 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void outOfRoom()
+    {
+        if (position == 6)
+        {
+            lookUpBTN.SetActive(false);
+            lookDownBTN.SetActive(false);
+            lookLeftBTN.SetActive(false);
+            lookRightBTN.SetActive(false);
+        }
+        else if (position == 0)
+        {
+            lookUpBTN.SetActive(true);
+            lookDownBTN.SetActive(true);
+            lookLeftBTN.SetActive(true);
+            lookRightBTN.SetActive(true);
+        }
+    }
 }
