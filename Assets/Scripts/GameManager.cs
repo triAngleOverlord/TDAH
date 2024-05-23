@@ -14,11 +14,22 @@ public class GameManager : MonoBehaviour
 
     [Header("Stats")]
     public static int spoonsINT;
-    public static float spoonRateINT;
+    public static float spoonRateINT;//real time seconds
     public float moodINT;
     public float moodRateINT;
     public MoodStates moodState;
     public static float momentumINT;
+    public static float momentumRATE;//real time seconds
+
+    [Header("Objective")]
+    public static float essayProgress;
+    [SerializeField] private Slider essayProgressUI;
+    public static float reportsProgress;
+    [SerializeField] private Slider reportsProgressUI;
+    public static float lectureProgress;
+    [SerializeField] private Slider lectureProgressUI;
+    public static float posterProgress;
+    [SerializeField] private Slider posterProgressUI;
 
     [Header("Buttons")]
     [SerializeField] private GameObject lookUpBTN;
@@ -66,6 +77,7 @@ public class GameManager : MonoBehaviour
         spoonsINT = 100;
         moodINT = 10;
         day = 1;
+        momentumRATE = 0.5f;
     }
     void Start()
     {
@@ -126,7 +138,7 @@ public class GameManager : MonoBehaviour
             momentumINT = 0;
         else if (momentumINT > 0)
             momentumINT = 50;
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(momentumRATE);
         
         StartCoroutine(momentumBar());
     }

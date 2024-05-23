@@ -16,21 +16,7 @@ public class taskButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.taskActive == true && GameManager.spoonsINT !=0)
-        {
-            
-            if(Input.GetKeyDown("space"))
-            {
-                if (GameManager.momentumINT < 33)
-                    GameManager.spoonsINT -= hardSpoonCost;
-                else
-                    GameManager.spoonsINT -= softSpoonCost;
-
-                GameManager.momentumINT+=2;
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-                GameManager.Instance.taskActive = false;
-        }
+        
     }
 
     public void activateTask()
@@ -38,6 +24,7 @@ public class taskButtons : MonoBehaviour
             GameManager.Instance.taskActive = true;
             momentumBar.SetActive(true);
             animator.Play("writing_01");
+        GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
 
     }
 
