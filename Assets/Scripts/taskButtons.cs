@@ -24,7 +24,7 @@ public class taskButtons : MonoBehaviour
             GameManager.Instance.taskActive = true;
             momentumBar.SetActive(true);
             animator.Play("writing_01");
-        GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
+            GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
 
     }
 
