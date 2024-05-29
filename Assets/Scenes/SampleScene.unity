@@ -1673,6 +1673,7 @@ MonoBehaviour:
   hardSpoonCost: 0
   softSpoonCost: 0
   animator: {fileID: 978648392}
+  transition: 0
 --- !u!1 &197340809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4763,7 +4764,8 @@ MonoBehaviour:
   momentumBar: {fileID: 0}
   hardSpoonCost: 3
   softSpoonCost: 1
-  animator: {fileID: 978648392}
+  animator: {fileID: 1765951520}
+  transition: 0
 --- !u!114 &510501069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10763,7 +10765,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -611.3604, y: -397}
+  m_AnchoredPosition: {x: -611.36053, y: -397}
   m_SizeDelta: {x: -1432.32, y: -580.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343261836
@@ -14639,6 +14641,7 @@ MonoBehaviour:
   hardSpoonCost: 0
   softSpoonCost: 5
   animator: {fileID: 386010752}
+  transition: 0
 --- !u!114 &1790967317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17649,6 +17652,7 @@ MonoBehaviour:
   hardSpoonCost: 0
   softSpoonCost: 5
   animator: {fileID: 386010752}
+  transition: 0
 --- !u!114 &2122938832
 MonoBehaviour:
   m_ObjectHideFlags: 0
