@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
 
     public void changeAnimationUp()
     {
-        if (position == 0)
+        if (position == 0 && taskActive == false)
         {
             animator.Play("lookUp_01");
             position = 2;
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
             lookLeftBTN.SetActive(false);
             lookRightBTN.SetActive(false);
         }
-        else if (position == 1)
+        else if (position == 1 && taskActive == false)
         {
             animator.Play("lookDownBack");
             position = 0;
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
 
     public void changeAnimationDown()
     {
-        if (position == 0)
+        if (position == 0 && taskActive == false)
         {
             animator.Play("lookDown");
             position = 1;
@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
             lookLeftBTN.SetActive(false);
             lookRightBTN.SetActive(false);
         }
-        else if (position == 2)
+        else if (position == 2 && taskActive == false)
         {
             animator.Play("lookUpBack");
             position = 0;
@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
     }
     public void changeAnimationLeft()
     {
-        if (position == 0)
+        if (position == 0 && taskActive == false)
         {
             animator.Play("lookLeft_01");
             position = 4;
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
             lookDownBTN.SetActive(false);
             lookLeftBTN.SetActive(false);
         }
-        else if (position == 3)
+        else if (position == 3 && taskActive == false)
         { 
             animator.Play("lookRightBack");
             position = 0;
@@ -260,7 +260,7 @@ public class GameManager : MonoBehaviour
     }
     public void changeAnimationRight()
     {
-        if (position == 0)
+        if (position == 0 && taskActive == false)
         {
             animator.Play("lookRight");
             position = 3;
@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
             lookDownBTN.SetActive(false);
             lookRightBTN.SetActive(false);
         }
-        else if(position == 4)
+        else if(position == 4 && taskActive == false)
         {
             animator.Play("lookLeftBack");
             position = 0;
@@ -284,21 +284,23 @@ public class GameManager : MonoBehaviour
     {
         if (position == 6)
         {
-            lookUpBTN.SetActive(false);
-            lookDownBTN.SetActive(false);
-            lookLeftBTN.SetActive(false);
-            lookRightBTN.SetActive(false);
+            lookingAround(false);
             hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 625, 0);
             minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 625, 0);
         }
         else if (position == 0)
         {
-            lookUpBTN.SetActive(true);
-            lookDownBTN.SetActive(true);
-            lookLeftBTN.SetActive(true);
-            lookRightBTN.SetActive(true);
+            lookingAround(true);
             hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 500, 0);
             minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 500, 0);
         }
+    }
+
+    public void lookingAround(bool state)
+    {
+        lookUpBTN.SetActive(state);
+        lookDownBTN.SetActive(state);
+        lookLeftBTN.SetActive(state);
+        lookRightBTN.SetActive(state);
     }
 }

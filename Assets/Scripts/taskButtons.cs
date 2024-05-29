@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,15 @@ public class taskButtons : MonoBehaviour
 
     public void activateTask()
     {
-            GameManager.Instance.taskActive = true;
-            momentumBar.SetActive(true);
-            animator.Play("writing_01");
-            GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
+        GameManager.Instance.taskActive = true;
+        momentumBar.SetActive(true);
+        animator.SetInteger("state", 1);
+        while (AnimatorIsPlaying() == false)
+        {
+            AnimatorIsPlaying();
+        }
+        animator.SetInteger("state", 2);
+        GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
 
     }
 
@@ -32,11 +38,21 @@ public class taskButtons : MonoBehaviour
     {
         GameManager.Instance.taskActive = false;
         momentumBar.SetActive(false);
-        animator.Play("downDefault");
+        animator.SetInteger("state", 3);
+        while (AnimatorIsPlaying() == false)
+        {
+            AnimatorIsPlaying();
+        }
+        animator.SetInteger("state", 0);
     }
 
     public void takeSpoonsAway()
     {
         GameManager.spoonsINT -= softSpoonCost;
+    }
+
+    bool AnimatorIsPlaying()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
 }

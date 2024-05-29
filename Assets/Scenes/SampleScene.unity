@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -718, y: 319}
+  m_AnchoredPosition: {x: 623, y: -100}
   m_SizeDelta: {x: 258.06, y: 51.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8095823
@@ -1537,7 +1537,7 @@ GameObject:
   - component: {fileID: 172666338}
   - component: {fileID: 172666341}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StopTask_BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2427,9 +2427,9 @@ GameObject:
   - component: {fileID: 285864661}
   - component: {fileID: 285864660}
   - component: {fileID: 285864659}
-  - component: {fileID: 285864658}
+  - component: {fileID: 285864662}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: goToSleep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2442,35 +2442,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285864656}
-  m_LocalRotation: {x: -0, y: -0, z: -0.03772509, w: 0.9992882}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0013254954, w: 0.9999991}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1661357789}
   m_Father: {fileID: 1837937296}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.324}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.152}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15776.001, y: -217.00003}
+  m_AnchoredPosition: {x: -15598, y: -302}
   m_SizeDelta: {x: 361.01, y: 127.36}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &285864658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285864656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d3e1053049574f8d886e0efcc03c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  momentumBar: {fileID: 0}
-  hardSpoonCost: 0
-  softSpoonCost: 5
-  animator: {fileID: 386010752}
 --- !u!114 &285864659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2515,9 +2499,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 285864658}
-        m_TargetAssemblyTypeName: taskButtons, Assembly-CSharp
-        m_MethodName: takeSpoonsAway
+      - m_Target: {fileID: 285864662}
+        m_TargetAssemblyTypeName: naviagtionButtons, Assembly-CSharp
+        m_MethodName: playNavigationAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2565,6 +2549,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285864656}
   m_CullTransparentMesh: 1
+--- !u!114 &285864662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285864656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49c27a5079ed804a8d6503514a6194d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303270520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10767,7 +10763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -611.3603, y: -397}
+  m_AnchoredPosition: {x: -611.3604, y: -397}
   m_SizeDelta: {x: -1432.32, y: -580.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343261836
@@ -14357,8 +14353,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1765951518}
   - component: {fileID: 1765951519}
+  - component: {fileID: 1765951520}
   m_Layer: 0
-  m_Name: down3
+  m_Name: down3_Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14431,6 +14428,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1765951520
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765951517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b833a18926a801744aca7ebb706e3275, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1785745996
 GameObject:
   m_ObjectHideFlags: 0

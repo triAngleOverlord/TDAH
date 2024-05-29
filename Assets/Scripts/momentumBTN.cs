@@ -17,7 +17,12 @@ public class momentumBTN : MonoBehaviour
                 GameManager.spoonsINT -= taskButtons.softSpoonCost;
 
             GameManager.momentumINT += 2;
-            rectTransform.localPosition = new Vector3(Random.Range(-718f, 718f), Random.Range(-319f, 319f), 0);
+            Vector3 temp = new Vector3();
+            while ((temp.x > -498f && temp.x < 623) && (temp.y > -110f && temp.y < 110))
+            {
+                temp = new Vector3(Random.Range(-718f, 718f), Random.Range(-319f, 319f), 0);
+            }
+            rectTransform.localPosition = temp;
         }
     }
 }
