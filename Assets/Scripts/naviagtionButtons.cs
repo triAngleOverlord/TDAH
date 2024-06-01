@@ -10,7 +10,7 @@ public class naviagtionButtons : MonoBehaviour
         animator = GameObject.Find("Main Camera").GetComponent<Animator>();
         animator.Play(gameObject.name);
 
-        if (gameObject.name == "hallway")
+        if (gameObject.name == "hallway" || gameObject.name == "goToSleep")
         {
             GameManager.Instance.position = 6;
             GameManager.Instance.outOfRoom();

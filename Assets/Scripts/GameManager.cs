@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,7 +46,9 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject momentumBar_UI;
+    public GameObject clickAndHold_UI;
     public TextMeshProUGUI spoon_UI;
+    [SerializeField] private RawImage moodFace;
 
     public bool taskActive;
 
@@ -73,11 +73,12 @@ public class GameManager : MonoBehaviour
         hour = 14;
 
         momentumBar_UI.SetActive(false);
+        clickAndHold_UI.SetActive(false);
         spoonRateINT = 1f;
         spoonsINT = 100;
         moodINT = 10;
         day = 1;
-        momentumRATE = 0.5f;
+        momentumRATE = 1f;
     }
     void Start()
     {
@@ -164,24 +165,28 @@ public class GameManager : MonoBehaviour
         if(moodINT < 0 || moodINT ==0)
         {
             moodState = MoodStates.Paralysis;
+            moodFace.texture = Resources.Load<Texture>("paralysis");
             moodRateINT = 1f;
             spoonRateINT = 1f;//
         }
         else if (moodINT < 3 && moodINT > 0)
         {
             moodState = MoodStates.Upset;
+            moodFace.texture = Resources.Load<Texture>("sad");
             moodRateINT = 0.5f;
             spoonRateINT = 1f;//
         }
         else if (moodINT < 6 && moodINT > 3)
         {
             moodState = MoodStates.Neutral;
+            moodFace.texture = Resources.Load<Texture>("neutral");
             moodRateINT = 0.2f;
             spoonRateINT = 1f;//
         }
         else if ((moodINT==10 || moodINT < 10) && moodINT >6)
         {
             moodState = MoodStates.Happy;
+            moodFace.texture = Resources.Load<Texture>("happy");
             moodRateINT = 0.1f;
             spoonRateINT = 1f;//
         }
@@ -302,5 +307,16 @@ public class GameManager : MonoBehaviour
         lookDownBTN.SetActive(state);
         lookLeftBTN.SetActive(state);
         lookRightBTN.SetActive(state);
+    }
+
+    public void spoonNotifications(string notif)
+    {
+        var clone = Instantiate(Resources.Load<GameObject>(notif), GameObject.Find("StatsPanel").transform);
+        StartCoroutine(gainSpoonNotif(clone));
+    }
+    public IEnumerator gainSpoonNotif(GameObject clone)
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(clone);
     }
 }
