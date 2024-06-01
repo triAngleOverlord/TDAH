@@ -8,16 +8,19 @@ public class actionButtons : MonoBehaviour
     public int spoonRate;
     public actionType type;
 
+    [SerializeField] private Animator animator = null;
+    public int animatorInteger;
+
     public enum actionType
     {
-        click, clickHold, scrub
+        click, clickHold, scrub, goToBed
     }
 
     public void doAction()
     {
         switch(type)
         {
-            case actionType.click:
+            case actionType.click:      animator.SetInteger("state", animatorInteger);
                 break;  
             case actionType.clickHold:  GameManager.Instance.clickAndHold_UI.SetActive(true);
                                         GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().spoonCost = spoonCost;

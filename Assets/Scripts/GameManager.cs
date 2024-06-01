@@ -78,12 +78,12 @@ public class GameManager : MonoBehaviour
         spoonsINT = 100;
         moodINT = 10;
         day = 1;
-        momentumRATE = 1f;
+        momentumRATE = 2f;
     }
     void Start()
     {
         InvokeRepeating("changeTheTime", 0.01f, 0.01f);
-        StartCoroutine(momentumBar());
+        //StartCoroutine(momentumBar());
         StartCoroutine(spoonRate());
         StartCoroutine(moodRate());
     }
@@ -91,7 +91,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if (momentumBar_UI.activeSelf == true)
+        {
+            if (momentumINT > 0 || momentumINT == 0)
+            {
+                momentumINT -= Time.deltaTime* momentumRATE;
+            }
+            else if (momentumINT < 0)
+                momentumINT = 0;
+            else if (momentumINT > 0)
+                momentumINT = 50;
+
+            
+        }
     }
 
     void changeTheTime()

@@ -4518,6 +4518,8 @@ MonoBehaviour:
   spoonCost: 50
   spoonRate: 0
   type: 1
+  animator: {fileID: 0}
+  animatorInteger: 0
 --- !u!1 &427562778
 GameObject:
   m_ObjectHideFlags: 0
@@ -5035,7 +5037,7 @@ MonoBehaviour:
   momentumBar: {fileID: 0}
   hardSpoonCost: 3
   softSpoonCost: 1
-  divider: 0
+  divider: 33
   animator: {fileID: 1765951520}
 --- !u!114 &510501069
 MonoBehaviour:
@@ -5990,6 +5992,8 @@ MonoBehaviour:
   spoonCost: 5
   spoonRate: 0
   type: 0
+  animator: {fileID: 0}
+  animatorInteger: 0
 --- !u!1 &626713053
 GameObject:
   m_ObjectHideFlags: 0

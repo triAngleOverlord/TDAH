@@ -6,6 +6,7 @@ public class momentumBTN : MonoBehaviour
 {
     public taskButtons taskButtons;
     public RectTransform rectTransform;
+    public int divider;
     
     public void doTheWork()
     {
@@ -16,7 +17,7 @@ public class momentumBTN : MonoBehaviour
             else
                 GameManager.spoonsINT -= taskButtons.softSpoonCost;
 
-            GameManager.momentumINT += 2;
+            GameManager.momentumINT += 10;
             Vector3 temp = new Vector3();
             while ((temp.x > -498f && temp.x < 623) && (temp.y > -110f && temp.y < 110))
             {

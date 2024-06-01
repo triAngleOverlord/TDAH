@@ -8,7 +8,6 @@ public class taskButtons : MonoBehaviour
     public int divider;
     [SerializeField] private Animator animator;
 
-    private float downTimer;
     void Start()
     {
         momentumBar = GameManager.Instance.momentumBar_UI;
@@ -17,7 +16,6 @@ public class taskButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        downTimer -= Time.deltaTime;
 
     }
 
@@ -29,6 +27,7 @@ public class taskButtons : MonoBehaviour
         GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
         GameObject.Find("StopTask_BTN").GetComponent<taskButtons>().animator = animator;
         momentumBar.GetComponent<momentumBar>().divisionValue = divider;
+        GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().divider = divider;
         
 
     }
@@ -40,10 +39,5 @@ public class taskButtons : MonoBehaviour
         
     }
 
-    public void takeSpoonsAway()
-    {
-        int x = (int) downTimer ;
-        GameManager.spoonsINT = softSpoonCost * x/ 1;
-    }
 
 }
