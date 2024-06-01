@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskButtons: {fileID: 0}
   rectTransform: {fileID: 8095822}
+  divider: 0
 --- !u!114 &8095824
 MonoBehaviour:
   m_ObjectHideFlags: 0
