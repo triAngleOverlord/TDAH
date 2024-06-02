@@ -8176,10 +8176,10 @@ MonoBehaviour:
   moodINT: 0
   moodRateINT: 0
   moodState: 0
-  essayProgressUI: {fileID: 0}
-  reportsProgressUI: {fileID: 0}
-  lectureProgressUI: {fileID: 0}
-  posterProgressUI: {fileID: 0}
+  essayProgressUI: {fileID: 2068903861}
+  reportsProgressUI: {fileID: 1384461302}
+  lectureProgressUI: {fileID: 1266093734}
+  posterProgressUI: {fileID: 1730331880}
   lookUpBTN: {fileID: 347829696}
   lookDownBTN: {fileID: 1731916094}
   lookLeftBTN: {fileID: 922129874}
@@ -10201,7 +10201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &828763051
 RectTransform:
   m_ObjectHideFlags: 0

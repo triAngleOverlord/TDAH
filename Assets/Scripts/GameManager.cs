@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
 
     public void outOfRoom()
     {
-        if (position == 6)
+        if (position == 6 || position == 4)
         {
             lookingAround(false);
             clockPanel.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-772.5f, 625, 0);

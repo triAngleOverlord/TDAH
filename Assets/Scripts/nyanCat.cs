@@ -34,6 +34,7 @@ public class nyanCat : MonoBehaviour
 
     public void goAway()
     {
+        GameManager.timeRate += 0.1f;
         Destroy(gameObject);
     }
 }
