@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class taskButtons : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class taskButtons : MonoBehaviour
     public taskType type;
     private int animatorINT;
     public string password = "";
+    public GameObject screen;
+    public VideoPlayer lastestPlayer;
 
     public enum taskType
     {
@@ -45,7 +50,26 @@ public class taskButtons : MonoBehaviour
                 GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().divider = divider;
                 break;
 
-            case taskType.finding: 
+            case taskType.finding:
+                GameManager.Instance.findingBar_UI.SetActive(true);
+                GameObject[] array = GameObject.FindGameObjectsWithTag("find");
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
+                    array[i].GetComponent<findVideo>().hasVideo = false;
+                }
+                var lecture = UnityEngine.Random.Range(0, array.Length);
+                array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
+                array[lecture].GetComponent<findVideo>().hasVideo = true;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].GetComponent<findVideo>().hasVideo == false)
+                    {
+                        array[i].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>(pickAVideo());
+                        array[i].GetComponent<findVideo>().hasVideo = true;
+                    }
+                } 
+                
                 break;
 
             case taskType.typing:
@@ -104,5 +128,29 @@ public class taskButtons : MonoBehaviour
         
     }
 
+    public static string generatePhrase()
+    {
+        List< string > phrases = new List< string >()
+        { 
+            "This is the lecture", "Definitely the lecture", "The boring lecture", "lecture", "LECTURE", "THE VERY IMPORTANT LECTURE", "Science Lecture",
+            "Totally the lecture", "A Lecture", "Who Lecture?", "What lecture?", "That lecture", "I am not a lecture", "A video maybe relating to a lecture",
+            "A video relating to the lecture"
+        };
 
+        string phrase = phrases[UnityEngine.Random.Range(0, phrases.Count)];
+        return phrase;
+    }
+
+    public static string pickAVideo()
+    {
+        List<string> videos = new List<string>()
+        {
+            "Videos/noot", "Videos/miku", "Videos/remmi", "Videos/dragon", "Videos/icecream", "Videos/rick"
+        };
+
+        string vid = videos[UnityEngine.Random.Range(0, videos.Count)];
+        return vid;
+    }
+
+    
 }

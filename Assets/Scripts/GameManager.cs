@@ -47,9 +47,11 @@ public class GameManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject momentumBar_UI;
     public GameObject typingBar_UI;
+    public GameObject findingBar_UI;
     public GameObject clickAndHold_UI;
     public TextMeshProUGUI spoon_UI;
     [SerializeField] private RawImage moodFace;
+    public GameObject screen;
 
     public bool taskActive;
 
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour
         momentumBar_UI.SetActive(false);
         typingBar_UI.SetActive(false);
         clickAndHold_UI.SetActive(false);
+        findingBar_UI.SetActive(false);
+        screen.SetActive(false);
         spoonRateINT = 1f;
         spoonsINT = 100;
         moodINT = 10;
