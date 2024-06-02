@@ -8,15 +8,18 @@ using UnityEngine.Video;
 
 public class taskButtons : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    private int animatorINT;
+    public taskType type;
     private GameObject momentumBar;
     private GameObject typingBar;
     public int hardSpoonCost;
     public int softSpoonCost;
+    [Header("Momentum Bar Only")]
     public int divider;
-    [SerializeField] private Animator animator;
-    public taskType type;
-    private int animatorINT;
+    [Header("Typing Bar Only")]
     public string password = "";
+    [Header("Finding Bar Only")]
     public GameObject screen;
     public VideoPlayer lastestPlayer;
 
@@ -39,7 +42,9 @@ public class taskButtons : MonoBehaviour
 
     public void activateTask()
     {
+        inactive(false);
         GameManager.Instance.taskActive = true;
+        GetComponent<Button>().interactable = false;
         switch(type)
         {
             case taskType.clicking:
@@ -90,8 +95,10 @@ public class taskButtons : MonoBehaviour
     public void deactivateTask()
     {
         GameManager.Instance.taskActive = false;
+        GetComponent<Button>().interactable = true;
         animator.SetInteger("state", 2);
-        
+        inactive(true);
+
     }
 
     public static string generateRandomLetters()
@@ -151,6 +158,14 @@ public class taskButtons : MonoBehaviour
 
         string vid = videos[UnityEngine.Random.Range(0, videos.Count)];
         return vid;
+    }
+
+    public void inactive(bool sate)
+    {
+        GameManager.Instance.lookUpBTN.GetComponent<Button>().interactable = sate;
+        GameManager.Instance.lookDownBTN.GetComponent<Button>().interactable = sate;
+        GameManager.Instance.lookLeftBTN.GetComponent<Button>().interactable = sate;
+        GameManager.Instance.lookRightBTN.GetComponent<Button>().interactable = sate;
     }
 
     

@@ -6,6 +6,7 @@ public class actionButtons : MonoBehaviour
 {
     public int spoonCost;
     public int spoonRate;
+    public int timeCost;
     public actionType type;
 
     [SerializeField] private Animator animator = null;

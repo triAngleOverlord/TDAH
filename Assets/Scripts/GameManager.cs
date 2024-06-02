@@ -30,17 +30,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider posterProgressUI;
 
     [Header("Buttons")]
-    [SerializeField] private GameObject lookUpBTN;
-    [SerializeField] private GameObject lookDownBTN;
-    [SerializeField] private GameObject lookLeftBTN;
-    [SerializeField] private GameObject lookRightBTN;
+    public GameObject lookUpBTN;
+    public GameObject lookDownBTN;
+    public GameObject lookLeftBTN;
+    public GameObject lookRightBTN;
 
-    [Header("Clock")]
-    public static float hour;
-    public static float minute;
+    [Header("Clock Stuff")]
     [SerializeField] TextMeshProUGUI hourHand;
     [SerializeField] TextMeshProUGUI minuteHand;
     [SerializeField] TextMeshProUGUI dayUI;
+    [SerializeField] private GameObject clockPanel;
+    public static float hour;
+    public static float minute;
     public static float timeRate;
     public static float day;
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI spoon_UI;
     [SerializeField] private RawImage moodFace;
     public GameObject screen;
+    public GameObject nyanCat;
 
     public bool taskActive;
 
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
+        timeRate = 2;
         spoonRateINT = 1f;
         spoonsINT = 100;
         moodINT = 10;
@@ -88,8 +91,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        InvokeRepeating("changeTheTime", 0.01f, 0.01f);
-        //StartCoroutine(momentumBar());
+        StartCoroutine(changeTheTime());
         StartCoroutine(spoonRate());
         StartCoroutine(moodRate());
     }
@@ -99,20 +101,32 @@ public class GameManager : MonoBehaviour
     {
        if (momentumBar_UI.activeSelf == true)
         {
-            if (momentumINT > 0 || momentumINT == 0)
+            if (momentumINT > 0 )
             {
                 momentumINT -= Time.deltaTime* momentumRATE;
             }
-            else if (momentumINT < 0)
+            else if (momentumINT < 0|| momentumINT == 0)
                 momentumINT = 0;
-            else if (momentumINT > 0)
-                momentumINT = 50;
-
-            
+            else if (momentumINT > 0 || momentumINT == 49)
+                momentumINT = 49;
         }
+
+       if (taskActive==true)
+        {
+            float nyanCatChance = Random.Range(0.0f, 100.0f);
+            if (nyanCatChance > 0.1 && nyanCatChance < 0.12)
+            {
+                Instantiate(Resources.Load<GameObject>("NyanCat"), GameObject.Find("MainPanel").transform);
+                Debug.Log(nyanCatChance);
+            }
+
+        }
+        
+            
+
     }
 
-    void changeTheTime()
+    public IEnumerator changeTheTime()
     {
         minute++;
 
@@ -147,20 +161,10 @@ public class GameManager : MonoBehaviour
             minuteHand.text = new string(minute.ToString());
         }
 
+        yield return new WaitForSeconds(timeRate);
+        StartCoroutine(changeTheTime());
     }
 
-    public IEnumerator momentumBar()
-    {
-        if (momentumINT > 0 || momentumINT ==0)
-            momentumINT--;
-        else if (momentumINT < 0)
-            momentumINT = 0;
-        else if (momentumINT > 0)
-            momentumINT = 50;
-        yield return new WaitForSecondsRealtime(momentumRATE);
-        
-        StartCoroutine(momentumBar());
-    }
 
     public IEnumerator spoonRate()
     {
@@ -308,14 +312,12 @@ public class GameManager : MonoBehaviour
         if (position == 6)
         {
             lookingAround(false);
-            hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 625, 0);
-            minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 625, 0);
+            clockPanel.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-772.5f, 625, 0);
         }
         else if (position == 0)
         {
             lookingAround(true);
-            hourHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-803, 500, 0);
-            minuteHand.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-685, 500, 0);
+            clockPanel.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-772.5f, 477.23f, 0);
         }
     }
 
