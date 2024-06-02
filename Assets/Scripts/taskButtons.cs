@@ -117,6 +117,7 @@ public class taskButtons : MonoBehaviour
             Debug.Log("correct");
             GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
             GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().softSpoonCost;
+            GameManager.Instance.typingBar_UI.SetActive(false);
             GameObject.Find("typing").GetComponent<taskButtons>().deactivateTask();
         }
         else

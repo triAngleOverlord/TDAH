@@ -334,7 +334,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator gainSpoonNotif(GameObject clone)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         Destroy(clone);
     }
 }
