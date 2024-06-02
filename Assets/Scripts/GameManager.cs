@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject momentumBar_UI;
+    public GameObject typingBar_UI;
     public GameObject clickAndHold_UI;
     public TextMeshProUGUI spoon_UI;
     [SerializeField] private RawImage moodFace;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
         hour = 14;
 
         momentumBar_UI.SetActive(false);
+        typingBar_UI.SetActive(false);
         clickAndHold_UI.SetActive(false);
         spoonRateINT = 1f;
         spoonsINT = 100;

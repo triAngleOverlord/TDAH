@@ -1,8 +1,12 @@
+using TMPro;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class taskButtons : MonoBehaviour
 {
-    public GameObject momentumBar;
+    private GameObject momentumBar;
+    private GameObject typingBar;
     public int hardSpoonCost;
     public int softSpoonCost;
     public int divider;
@@ -19,6 +23,7 @@ public class taskButtons : MonoBehaviour
     void Start()
     {
         momentumBar = GameManager.Instance.momentumBar_UI;
+        typingBar = GameManager.Instance.typingBar_UI;
     }
 
     // Update is called once per frame
@@ -44,12 +49,14 @@ public class taskButtons : MonoBehaviour
                 break;
 
             case taskType.typing:
+                typingBar.SetActive(true);
                 password = (generateRandomLetters());
+                GameObject.Find("password").GetComponent<TextMeshProUGUI>().text = new string(password);
                 break;
         }
 
         
-        animator.SetInteger("state", animatorINT);
+        //animator.SetInteger("state", animatorINT);
 
         
         
@@ -80,7 +87,21 @@ public class taskButtons : MonoBehaviour
 
     public void submitTyping()
     {
-
+        //Debug.Log(GameObject.Find("typingTask").GetComponent<TMP_InputField>().text.ToString());
+        if (GameObject.Find("typingTask").GetComponent<TMP_InputField>().text == GameObject.Find("typing").GetComponent<taskButtons>().password)
+        {
+            Debug.Log("correct");
+            GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
+            GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().softSpoonCost;
+            GameObject.Find("typing").GetComponent<taskButtons>().deactivateTask();
+        }
+        else
+        {
+            GameObject.Find("typingTask").GetComponent<Animator>().Play("wrongInput");
+            GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
+            GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().hardSpoonCost;
+        }
+        
     }
 
 
