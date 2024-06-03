@@ -6,6 +6,7 @@ TagManager:
   tags:
   - find
   - taskBTN
+  - actionBTN
   layers:
   - Default
   - TransparentFX

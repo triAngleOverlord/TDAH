@@ -57,5 +57,10 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         pointerDownTimer = 0;
         GameManager.spoonsINT -= spoonCost;
         GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
+        GameObject[] allActionButtons = GameObject.FindGameObjectsWithTag("actionBTN");
+        for (int i = 0; i < allActionButtons.Length; i++)
+        {
+            allActionButtons[i].GetComponent<Button>().interactable = true;
+        }
     }
 }
