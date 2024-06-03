@@ -45,7 +45,8 @@ public class taskButtons : MonoBehaviour
         inactive(false);
         GameManager.Instance.taskActive = true;
         GetComponent<Button>().interactable = false;
-        switch(type)
+        GetComponent<Image>().raycastTarget = false;
+        switch (type)
         {
             case taskType.clicking:
                 momentumBar.SetActive(true);
@@ -58,29 +59,51 @@ public class taskButtons : MonoBehaviour
             case taskType.finding:
                 GameManager.Instance.findingBar_UI.SetActive(true);
                 GameObject[] array = GameObject.FindGameObjectsWithTag("find");
-                for (int i = 0; i < array.Length; i++)
+                if (GameManager.day == 1 || GameManager.day == 2|| GameManager.day == 3)
                 {
-                    array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
-                    array[i].GetComponent<findVideo>().hasVideo = false;
-                    array[i].GetComponent<Image>().color = Color.white;
-                }
-                var lecture = UnityEngine.Random.Range(0, array.Length);
-                array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
-                array[lecture].GetComponent<findVideo>().hasVideo = true;
-                for (int i = 0; i < array.Length; i++)
-                {
-                    if (array[i].GetComponent<findVideo>().hasVideo == false)
+                    //only activate the lecture button
+                    for (int i = 0; i < array.Length; i++)
                     {
-                        array[i].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>(pickAVideo());
-                        array[i].GetComponent<findVideo>().hasVideo = true;
+                        if (array[i].gameObject.name != "actuallyLecture")
+                        {
+                            array[i].gameObject.SetActive(false);
+                        }
                     }
-                } 
-                
+                }
+                else
+                {
+                    array[0].SetActive(false);
+                    for (int i = 1; i < array.Length; i++)
+                    {
+                        array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
+                        array[i].GetComponent<findVideo>().hasVideo = false;
+                        array[i].GetComponent<Image>().color = Color.white;
+                    }
+                    var lecture = UnityEngine.Random.Range(0, array.Length);
+                    array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
+                    array[lecture].GetComponent<findVideo>().hasVideo = true;
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        if (array[i].GetComponent<findVideo>().hasVideo == false)
+                        {
+                            array[i].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>(pickAVideo());
+                            array[i].GetComponent<findVideo>().hasVideo = true;
+                        }
+                    } 
+                }
                 break;
 
             case taskType.typing:
                 typingBar.SetActive(true);
-                password = (generateRandomLetters());
+                int length = 0;
+                if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
+                    length = 7;
+                else if (GameManager.day == 4)
+                    length = 12;
+                else if (GameManager.day == 5)
+                    length = 20;
+
+                password = (generateRandomLetters(length));
                 GameObject.Find("password").GetComponent<TextMeshProUGUI>().text = new string(password);
                 break;
         }
@@ -94,6 +117,7 @@ public class taskButtons : MonoBehaviour
     {
         GameManager.Instance.taskActive = false;
         GetComponent<Button>().interactable = true;
+        GetComponent<Image>().raycastTarget = true;
         momentumBar.SetActive(false);
         animator.SetInteger("state", 2);
         inactive(true);
@@ -109,10 +133,10 @@ public class taskButtons : MonoBehaviour
         GetComponent<Button>().interactable = true;
     }
 
-    public static string generateRandomLetters()
+    public static string generateRandomLetters(int num)
     {
         var allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var length = 12;
+        var length = num;
 
         var randomChars = new char[length];
 

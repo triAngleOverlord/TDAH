@@ -24,7 +24,7 @@ public class findVideo : MonoBehaviour
             GetComponent<Image>().color = Color.gray;
             //GameManager.Instance.findingBar_UI.SetActive(false);
         }
-        Debug.Log(vPlayer.clip.ToString());
+        //Debug.Log(vPlayer.clip.ToString());
         if (vPlayer.clip.ToString() == "whistle (UnityEngine.VideoClip)")
         {
             GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().softSpoonCost;

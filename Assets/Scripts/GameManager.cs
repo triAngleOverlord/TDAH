@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
-        timeRate = 2;
+        timeRate = 0.5f;
         spoonRateINT = 1f;
         spoonsINT = 100;
         moodINT = 10;
@@ -111,19 +111,7 @@ public class GameManager : MonoBehaviour
                 momentumINT = 49;
         }
 
-       if (taskActive==true)
-        {
-            float nyanCatChance = Random.Range(0.0f, 100.0f);
-            if (nyanCatChance > 0.1 && nyanCatChance < 0.11)
-            {
-                Instantiate(Resources.Load<GameObject>("NyanCat"), GameObject.Find("MainPanel").transform);
-                Debug.Log(nyanCatChance);
-            }
-
-        }
-        
-            
-
+       
     }
 
     public IEnumerator changeTheTime()
@@ -162,6 +150,24 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(timeRate);
+        if (taskActive == true && day != 1)
+        {
+            int chance = 0;
+            if (day == 2)
+                chance = 2;
+            else if (day == 3)
+                chance = 5;
+            else if (day == 4)
+                chance = 7;
+            else if (day == 5)
+                chance = 10;
+            int nyanCatChance = Random.Range(0, 100);
+            if (nyanCatChance > 1 && nyanCatChance < chance)
+            {
+                Instantiate(Resources.Load<GameObject>("NyanCat"), GameObject.Find("MainPanel").transform);
+                Debug.Log(nyanCatChance);
+            }
+        }
         StartCoroutine(changeTheTime());
     }
 

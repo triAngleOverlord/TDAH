@@ -16,14 +16,19 @@ public class momentumBTN : MonoBehaviour
                 GameManager.spoonsINT -= taskButtons.hardSpoonCost;
             else
                 GameManager.spoonsINT -= taskButtons.softSpoonCost;
-
+            GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
             GameManager.momentumINT += 10;
-            Vector3 temp = new Vector3();
-            while ((temp.x > -498f && temp.x < 623) && (temp.y > -110f && temp.y < 110))
+            if (GameManager.day == 4 || GameManager.day == 5 )
             {
-                temp = new Vector3(Random.Range(-718f, 718f), Random.Range(-319f, 319f), 0);
+                Vector3 temp = new Vector3();
+                while ((temp.x > -498f && temp.x < 623) && (temp.y > -110f && temp.y < 110))
+                {
+                    temp = new Vector3(Random.Range(-718f, 718f), Random.Range(-319f, 319f), 0);
+                }
+                rectTransform.localPosition = temp;
+
             }
-            rectTransform.localPosition = temp;
+                
         }
     }
 }
