@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class findVideo : MonoBehaviour
@@ -20,6 +21,7 @@ public class findVideo : MonoBehaviour
             vPlayer.Play();
             GameObject.Find("watchLecture").GetComponent<taskButtons>().lastestPlayer = vPlayer;
             GameManager.Instance.screen.SetActive(true);
+            GetComponent<Image>().color = Color.gray;
             //GameManager.Instance.findingBar_UI.SetActive(false);
         }
         Debug.Log(vPlayer.clip.ToString());
@@ -28,6 +30,7 @@ public class findVideo : MonoBehaviour
             GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().softSpoonCost;
             //Debug.Log("watching lecture");
             GameManager.Instance.spoonNotifications("spoonDecrease_UI");
+            
         }
         else if (vPlayer.clip.ToString() != "whistle (UnityEngine.VideoClip)")
         {
@@ -44,5 +47,12 @@ public class findVideo : MonoBehaviour
         GameObject.Find("watchLecture").GetComponent<taskButtons>().lastestPlayer.Stop();
         GameManager.Instance.findingBar_UI.SetActive(true);
         //toothlessPanel.SetActive(false);
+    }
+
+    public IEnumerator countingLectureProgress()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.lectureProgress += 1;
+        StartCoroutine(countingLectureProgress());
     }
 }

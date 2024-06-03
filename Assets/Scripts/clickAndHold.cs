@@ -21,7 +21,7 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;
-        Debug.Log("Pointer Down");
+        //Debug.Log("Pointer Down");
     }
 
     public void OnPointerUp(PointerEventData eventData)

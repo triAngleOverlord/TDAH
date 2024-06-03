@@ -50,7 +50,7 @@ public class taskButtons : MonoBehaviour
             case taskType.clicking:
                 momentumBar.SetActive(true);
                 GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
-                GameObject.Find("StopTask_BTN").GetComponent<taskButtons>().animator = animator;
+                //GameObject.Find("StopTask_BTN").GetComponent<taskButtons>().animator = animator;
                 momentumBar.GetComponent<momentumBar>().divisionValue = divider;
                 GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().divider = divider;
                 break;
@@ -62,6 +62,7 @@ public class taskButtons : MonoBehaviour
                 {
                     array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
                     array[i].GetComponent<findVideo>().hasVideo = false;
+                    array[i].GetComponent<Image>().color = Color.white;
                 }
                 var lecture = UnityEngine.Random.Range(0, array.Length);
                 array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
@@ -87,18 +88,25 @@ public class taskButtons : MonoBehaviour
         
         //animator.SetInteger("state", animatorINT);
 
-        
-        
-
     }
 
-    public void deactivateTask()
+    public void deactivateTaskClicking()
     {
         GameManager.Instance.taskActive = false;
         GetComponent<Button>().interactable = true;
+        momentumBar.SetActive(false);
         animator.SetInteger("state", 2);
         inactive(true);
 
+    }
+
+    public void deactivateLecture()
+    {
+        screen.SetActive(false);
+        GameManager.Instance.taskActive = false;
+        GameManager.Instance.findingBar_UI.SetActive(false);
+        //record how long they watched the lecture
+        GetComponent<Button>().interactable = true;
     }
 
     public static string generateRandomLetters()
@@ -125,7 +133,7 @@ public class taskButtons : MonoBehaviour
             GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
             GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().softSpoonCost;
             GameManager.Instance.typingBar_UI.SetActive(false);
-            GameObject.Find("typing").GetComponent<taskButtons>().deactivateTask();
+            GameObject.Find("typing").GetComponent<taskButtons>().deactivateTaskClicking();
         }
         else
         {

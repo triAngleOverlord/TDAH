@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
        if (taskActive==true)
         {
             float nyanCatChance = Random.Range(0.0f, 100.0f);
-            if (nyanCatChance > 0.1 && nyanCatChance < 0.12)
+            if (nyanCatChance > 0.1 && nyanCatChance < 0.11)
             {
                 Instantiate(Resources.Load<GameObject>("NyanCat"), GameObject.Find("MainPanel").transform);
                 Debug.Log(nyanCatChance);
