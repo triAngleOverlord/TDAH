@@ -38,4 +38,11 @@ public class actionButtons : MonoBehaviour
 
     }
 
+    public void bathroomAction()
+    {
+        Debug.Log(animatorInteger.ToString());
+        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
+        animator.SetInteger("state", animatorInteger);
+    }
+
 }
