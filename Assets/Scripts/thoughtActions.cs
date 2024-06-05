@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class thoughtActions : MonoBehaviour
 {
@@ -21,7 +22,12 @@ public class thoughtActions : MonoBehaviour
     {
         switch (doThis)
         {
-            case actionsToDo.noSnooze: GameObject.Find("snooze").GetComponent<RectTransform>().localPosition = new Vector3(0, -164.28f, 0);
+            case actionsToDo.noSnooze: 
+                GameObject.Find("snooze").GetComponent<RectTransform>().localPosition = new Vector3(0, -164.28f, 0);
+                ThoughtsManager.thoughtStage += 1;
+                Debug.Log(ThoughtsManager.thoughtStage);
+                GameManager.Instance.lookUpBTN.SetActive(true);
+                ThoughtsManager.instantiateThought(ThoughtsManager.tutorialTexts[ThoughtsManager.thoughtStage], "LookUp_BTN", actionsToDo.lookAtToDoList);
                 break;
             case actionsToDo.lookAtToDoList: 
                 break;
@@ -57,8 +63,8 @@ public class thoughtActions : MonoBehaviour
         }
 
         Destroy(whichThought);
-
-
+        gameObject.GetComponent<Button>().onClick.RemoveListener(() => gameObject.GetComponent<thoughtActions>().doesAction());
+        Destroy(this);
     }
 
     

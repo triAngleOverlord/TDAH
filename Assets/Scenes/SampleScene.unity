@@ -8856,7 +8856,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 642563325}
-  - {fileID: 2122938830}
   - {fileID: 1174951711}
   m_Father: {fileID: 1837937296}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23363,7 +23362,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1749738343
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1658665135
@@ -25699,6 +25698,7 @@ RectTransform:
   m_Children:
   - {fileID: 285864657}
   - {fileID: 540074100}
+  - {fileID: 2122938830}
   m_Father: {fileID: 329973467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -29888,11 +29888,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1036603231}
-  m_Father: {fileID: 540074100}
+  m_Father: {fileID: 1837937296}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -35.279785}
+  m_AnchoredPosition: {x: -29824.006, y: -1368.2799}
   m_SizeDelta: {x: 361.01, y: 127.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122938832
@@ -30465,5 +30465,5 @@ SceneRoots:
   - {fileID: 591093859}
   - {fileID: 1862249005}
   - {fileID: 1332233124}
-  - {fileID: 1658665135}
   - {fileID: 329973467}
+  - {fileID: 1658665135}

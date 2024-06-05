@@ -44,14 +44,15 @@ public class ThoughtsManager : MonoBehaviour
         
     }
 
-    public void instantiateThought(string text, string objectName, actionsToDo act)
+    public static void instantiateThought(string text, string objectName, actionsToDo act)
     {
         var clone = GameObject.Find(objectName).AddComponent<thoughtActions>();
         clone.GetComponent<thoughtActions>().doThis = act;
         var firstThought = Instantiate(Resources.Load<GameObject>("thoughtBubble"));
         firstThought.GetComponentInChildren<TextMeshProUGUI>().text = new string(text);
         clone.GetComponent<thoughtActions>().whichThought = firstThought;
-        //clone.GetComponent<Button>().onClick.AddListener(() => clone.GetComponent<thoughtActions>().doesAction());
+        clone.GetComponent<Button>().onClick.AddListener(() => clone.GetComponent<thoughtActions>().doesAction());
 
     }  
+
 }
