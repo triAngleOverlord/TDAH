@@ -11,13 +11,14 @@ public class taskButtons : MonoBehaviour
     [SerializeField] private Animator animator;
     private int animatorINT;
     public taskType type;
-    private GameObject momentumBar;
-    private GameObject typingBar;
     public int hardSpoonCost;
     public int softSpoonCost;
+
     [Header("Momentum Bar Only")]
+    private GameObject momentumBar;
     public int divider;
     [Header("Typing Bar Only")]
+    private GameObject typingBar;
     public string password = "";
     [Header("Finding Bar Only")]
     public GameObject screen;

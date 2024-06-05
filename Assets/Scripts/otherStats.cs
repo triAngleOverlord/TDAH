@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class otherStats : MonoBehaviour
@@ -21,5 +22,11 @@ public class otherStats : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
 
         //apply thoughts stats at half way and what happens at 0
+    }
+
+    public void instantiateThought(int num)
+    {
+        var firstThought = Instantiate(Resources.Load<GameObject>("thoughtBubble"));
+        firstThought.GetComponentInChildren<TextMeshProUGUI>().text = new string(ThoughtsManager.tutorialTexts[num]);
     }
 }

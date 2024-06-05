@@ -84,12 +84,17 @@ public class GameManager : MonoBehaviour
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
+
+        lookingAround(false);
         timeRate = 0.5f;
         spoonRateINT = 1f;
         spoonsINT = 100;
-        moodINT = 10;
+        moodINT = 5.9f;
         day = 1;
         momentumRATE = 2f;
+
+        //Debug.Log(GameObject.Find("getOutOfBed").name);
+        //ThoughtsManager.instanceTH.instantiateThought(ThoughtsManager.tutorialTexts[ThoughtsManager.thoughtStage], "getOutOfBed", thoughtActions.actionsToDo.noSnooze);
     }
     void Start()
     {
