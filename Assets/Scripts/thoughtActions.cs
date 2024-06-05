@@ -26,7 +26,7 @@ public class thoughtActions : MonoBehaviour
                 GameObject.Find("snooze").GetComponent<RectTransform>().localPosition = new Vector3(0, -164.28f, 0);
                 ThoughtsManager.thoughtStage += 1;
                 Debug.Log(ThoughtsManager.thoughtStage);
-                GameManager.Instance.lookUpBTN.SetActive(true);
+                GameObject.Find("LookUp_BTN").GetComponent<RectTransform>().localPosition = new Vector3(0, 493f, 0);
                 ThoughtsManager.instantiateThought(ThoughtsManager.tutorialTexts[ThoughtsManager.thoughtStage], "LookUp_BTN", actionsToDo.lookAtToDoList);
                 break;
             case actionsToDo.lookAtToDoList: 

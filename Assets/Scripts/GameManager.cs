@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
 
-        lookingAround(false);
+        
         timeRate = 0.5f;
         spoonRateINT = 1f;
         spoonsINT = 100;
