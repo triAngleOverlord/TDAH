@@ -11,6 +11,8 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private bool pointerDown;
     private float pointerDownTimer;
 
+    public actionButtons currentButton;
+
     public int spoonCost;
 
     public float requiredHoldTime;
@@ -31,6 +33,7 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private void Update()
     {
+        currentButton = GameManager.Instance.currentButton.GetComponent<actionButtons>();
         if (pointerDown)
         {
             pointerDownTimer += Time.deltaTime;
@@ -62,5 +65,6 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         {
             allActionButtons[i].GetComponent<Button>().interactable = true;
         }
+        currentButton.animator.SetInteger("state", currentButton.animatorInteger + 1);
     }
 }

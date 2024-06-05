@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class actionButtons : MonoBehaviour
 {
     public int spoonCost;
-    public int spoonRate;
     public int timeCost;
     public actionType type;
+    public string beginAnimation;
 
-    [SerializeField] private Animator animator = null;
+    public Animator animator = null;
     public int animatorInteger;
 
     public enum actionType
     {
-        click, clickHold, scrub, goToBed
+         clickHold, scrub, goToBed
     }
 
     public void doAction()
@@ -25,24 +25,35 @@ public class actionButtons : MonoBehaviour
         {
             allActionButtons[i].GetComponent<Button>().interactable = false;
         }
-        switch(type)
+        beginCamAnim();
+        GameManager.Instance.currentButton = gameObject;
+        
+
+    }
+
+    public void beginCamAnim()
+    {
+        GameObject.Find("Main Camera").GetComponent<Animator>().Play(beginAnimation);
+        animator.SetInteger("state", animatorInteger);
+    }
+
+
+    public void whichUI()
+    {
+        switch (type)
         {
-            case actionType.click:      animator.SetInteger("state", animatorInteger);
-                break;  
-            case actionType.clickHold:  GameManager.Instance.clickAndHold_UI.SetActive(true);
-                                        GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().spoonCost = spoonCost;
+            case actionType.clickHold:
+                
+                GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().spoonCost = spoonCost;
+                GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().currentButton = this;
                 break;
+
             case actionType.scrub:
                 break;
         }
-
     }
 
-    public void bathroomAction()
-    {
-        Debug.Log(animatorInteger.ToString());
-        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
-        animator.SetInteger("state", animatorInteger);
-    }
+
+    
 
 }

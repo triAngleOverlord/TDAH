@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     public GameObject screen;
     public GameObject nyanCat;
 
+    [Header("References")]
+    public GameObject currentButton;
     public bool taskActive;
 
     public enum MoodStates
