@@ -52,9 +52,6 @@ public class taskButtons : MonoBehaviour
             case taskType.clicking:
                 momentumBar.SetActive(true);
                 GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
-                //GameObject.Find("StopTask_BTN").GetComponent<taskButtons>().animator = animator;
-                momentumBar.GetComponent<momentumBar>().divisionValue = divider;
-                GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().divider = divider;
                 break;
 
             case taskType.finding:

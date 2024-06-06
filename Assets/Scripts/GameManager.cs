@@ -12,9 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Stats")]
     public static int spoonsINT;
-    public static float spoonRateINT;//real time seconds
     public float moodINT;
-    public float moodRateINT;
     public MoodStates moodState;
     public static float momentumINT;
     public static float momentumRATE;//real time seconds
@@ -86,20 +84,16 @@ public class GameManager : MonoBehaviour
         screen.SetActive(false);
 
         
-        timeRate = 0.5f;
-        spoonRateINT = 1f;
+        timeRate = 1f;
         spoonsINT = 100;
         moodINT = 5.9f;
         day = 1;
         momentumRATE = 2f;
 
-        //Debug.Log(GameObject.Find("getOutOfBed").name);
-        //ThoughtsManager.instanceTH.instantiateThought(ThoughtsManager.tutorialTexts[ThoughtsManager.thoughtStage], "getOutOfBed", thoughtActions.actionsToDo.noSnooze);
     }
     void Start()
     {
         StartCoroutine(changeTheTime());
-        StartCoroutine(spoonRate());
         StartCoroutine(moodRate());
     }
 
@@ -179,63 +173,46 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator spoonRate()
-    {
-        if (spoonsINT < 0)
-                spoonsINT = 0;
-        if (taskActive == false)
-        {
-            if (spoonsINT > 0 || spoonsINT ==0)
-                spoonsINT++;
-        }
-            spoon_UI.text = new string(spoonsINT.ToString());
-            yield return new WaitForSeconds(spoonRateINT);
-        
-        
-        StartCoroutine (spoonRate());
-    }
+    
 
     public IEnumerator moodRate()
     {
-        if(moodINT < 0 || moodINT ==0)
+        if(moodINT < 1.5f || moodINT == 1.5f )
         {
             moodState = MoodStates.Paralysis;
             moodFace.texture = Resources.Load<Texture>("paralysis");
-            moodRateINT = 1f;
-            spoonRateINT = 1f;//
+            spoonsINT -= 1;
         }
-        else if (moodINT < 3 && moodINT > 0)
+        else if ((moodINT < 3 || moodINT ==3) && moodINT > 1.5f)
         {
             moodState = MoodStates.Upset;
             moodFace.texture = Resources.Load<Texture>("sad");
-            moodRateINT = 0.5f;
-            spoonRateINT = 1f;//
+            spoonsINT += 1;
         }
         else if (moodINT < 6 && moodINT > 3)
         {
             moodState = MoodStates.Neutral;
             moodFace.texture = Resources.Load<Texture>("neutral");
-            moodRateINT = 0.2f;
-            spoonRateINT = 1f;//
+            spoonsINT += 2;
         }
-        else if ((moodINT==10 || moodINT < 10) && moodINT >6)
+        else if (moodINT >6 || moodINT == 6)
         {
             moodState = MoodStates.Happy;
             moodFace.texture = Resources.Load<Texture>("happy");
-            moodRateINT = 0.1f;
-            spoonRateINT = 1f;//
+            spoonsINT += 3;
         }
 
-        moodINT -= moodRateINT;
-        yield return new WaitForSeconds(2);
+        moodINT -= 0.1f;
+
+        if (moodINT < 0)
+            moodINT = 0;
+        else if (moodINT > 10)
+            moodINT = 10;
+        yield return new WaitForSeconds(1);
         StartCoroutine(moodRate());
     }
 
-    public void changeClockSpeed()
-    {
-        CancelInvoke();
-        InvokeRepeating("changeTheTime", 0.01f, timeRate);
-    }
+    
 
     public void changeAnimationUp()
     {
@@ -325,12 +302,10 @@ public class GameManager : MonoBehaviour
         if (position == 6 || position == 4)
         {
             lookingAround(false);
-            clockPanel.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-772.5f, 625, 0);
         }
         else if (position == 0)
         {
             lookingAround(true);
-            clockPanel.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(-772.5f, 477.23f, 0);
         }
     }
 

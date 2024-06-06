@@ -15,8 +15,7 @@ public class ThoughtsManager : MonoBehaviour
 
     public static string[] tutorialTexts = new string [] 
     {
-        "Alright, new day, new me!",
-        "Let's get up on time! Dismiss 7 am!",
+        "Let's get up on time!",
         "I've got a lot to do. Let me first check my to do list above.",
         "5 days till exams. Manageable!",
         "To get the day going, let's do hygenic normal person things!",
@@ -32,6 +31,11 @@ public class ThoughtsManager : MonoBehaviour
         "I feel really strange...",
         "It's late now... let's go shower and have dinner... maybe I'll feel better afterwards",
         "Perhaps its time to go to bed"
+    };
+
+    public static string[] peeTexts = new string[]
+    {
+        "I need to pee."
     };
     void Start()
     {

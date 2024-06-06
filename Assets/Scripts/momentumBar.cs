@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class momentumBar : MonoBehaviour
 {
     public Slider slider;
-    [SerializeField] private Slider divisionSlider;
     public float divisionValue;
     void Start()
     {
@@ -17,6 +16,5 @@ public class momentumBar : MonoBehaviour
     void Update()
     {
         slider.value = GameManager.momentumINT;
-        divisionSlider.value = divisionValue;
     }
 }
