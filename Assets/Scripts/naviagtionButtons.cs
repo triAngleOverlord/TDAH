@@ -8,27 +8,41 @@ public class naviagtionButtons : MonoBehaviour
    public void playNavigationAnimation()
     {
         animator = GameObject.Find("Main Camera").GetComponent<Animator>();
-        animator.Play(gameObject.name);
+        if (gameObject.name == "goToSleep")
+        {
+            if (GameManager.hour > 21 || (GameManager.hour == 21 && GameManager.minute != 0))
+            {
+                animator.Play(gameObject.name);
+                GameManager.Instance.position = 6;
+                GameManager.Instance.outOfRoom();
+            }
+            else
+                Debug.Log("It's too early to go to bed");
+        }
+        else
+        { 
+            animator.Play(gameObject.name);
 
-        if (gameObject.name == "hallway" || gameObject.name == "goToSleep")
-        {
-            GameManager.Instance.position = 6;
-            GameManager.Instance.outOfRoom();
-        }
-        else if (gameObject.name == "backLiving")
-        {
-            GameManager.Instance.position = 0;
-            StartCoroutine(backToRoomUI(2));
-        }
-        else if (gameObject.name == "backBathroom")
-        {
-            GameManager.Instance.position = 0;
-            StartCoroutine(backToRoomUI(2));
-        }
-        else if (gameObject.name == "getOutOfBed")
-        {
-            GameManager.Instance.position = 0;
-            StartCoroutine(backToRoomUI(2));
+            if (gameObject.name == "hallway")
+            {
+                GameManager.Instance.position = 6;
+                GameManager.Instance.outOfRoom();
+            }
+            else if (gameObject.name == "backLiving")
+            {
+                GameManager.Instance.position = 0;
+                StartCoroutine(backToRoomUI(2));
+            }
+            else if (gameObject.name == "backBathroom")
+            {
+                GameManager.Instance.position = 0;
+                StartCoroutine(backToRoomUI(2));
+            }
+            else if (gameObject.name == "getOutOfBed")
+            {
+                GameManager.Instance.position = 0;
+                StartCoroutine(backToRoomUI(2));
+            }
         }
     }
 

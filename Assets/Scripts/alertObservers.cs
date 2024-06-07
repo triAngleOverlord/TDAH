@@ -34,5 +34,9 @@ public class alertObservers : MonoBehaviour
         {
             GameObject.Find("Main Camera").GetComponent<Animator>().Play("backKitchenAnimator");
         }
+        else if (message.Equals("inBed"))
+        {
+            GameManager.Instance.goToBed("I've tried my best... let's sleep.");
+        }
     }
 }

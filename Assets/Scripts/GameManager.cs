@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
         if (spoonsINT < 0)
         {
             spoonsINT = 0;
-            goToBed("I don't feel... anything...let's just... go to bed...");
+            goToBed("I don't feel... anything...let's just... do nothing... for the rest of the day... and... go to bed...");
         }
             
         yield return new WaitForSeconds(1);
@@ -377,6 +377,8 @@ public class GameManager : MonoBehaviour
         
         GetComponent<Animator>().Play("inBed");
         sleepCanvas.SetActive(false);
+        day += 1;
+        dayUI.text = new string(day.ToString());
         hour = 7;
         minute = 0;
         StartCoroutine(changeTheTime());
