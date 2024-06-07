@@ -36,6 +36,7 @@ public class findVideo : MonoBehaviour
         else if (vPlayer.clip.ToString() != "whistle (UnityEngine.VideoClip)")
         {
             GameManager.spoonsINT += 5;////BALANCE
+            GameManager.moodINT += 0.1f;
             GameManager.Instance.spoonNotifications("spoonIncrease_UI");
             //Debug.Log("procrastinating");
         }
@@ -58,4 +59,6 @@ public class findVideo : MonoBehaviour
         stopVid();
         GameObject.Find("watchLecture").GetComponent<taskButtons>().deactivateLecture();
     }
+
+    
 }

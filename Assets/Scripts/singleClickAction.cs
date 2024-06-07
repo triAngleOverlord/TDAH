@@ -18,29 +18,40 @@ public class singleClickAction : MonoBehaviour
 
     public void bathroomAction()
     {
-        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
-        animator.Play(name);
-        GameManager.spoonsINT -= spoonCost;
-        GameManager.minute += timeCost;
-        GameManager.moodINT += moodCost;
-        //singleLoop = false;
+        if (GameManager.spoonsINT > spoonCost)
+        {
+            animator.SetBool("default", false);
+            GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
+            animator.Play(name);
+            GameManager.spoonsINT -= spoonCost;
+            GameManager.minute += timeCost;
+            GameManager.moodINT += moodCost;
+        }
     }
 
     public void patioAction()
     {
-        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toPetDawg");
-        animator.Play(name);
-        GameManager.spoonsINT -= spoonCost;
-        GameManager.minute += timeCost;
-        GameManager.moodINT += moodCost;
+        if (GameManager.spoonsINT > spoonCost)
+        {
+            animator.SetBool("default", false);
+            GameObject.Find("Main Camera").GetComponent<Animator>().Play("toPetDawg");
+            animator.Play(name);
+            GameManager.spoonsINT -= spoonCost;
+            GameManager.minute += timeCost;
+            GameManager.moodINT += moodCost;
+        }
     }
 
     public void kitchenAction()
     {
-        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toKitchenAnimator");
-        animator.Play(name);
-        GameManager.spoonsINT -= spoonCost;
-        GameManager.minute += timeCost;
-        GameManager.moodINT += moodCost;
+        if (GameManager.spoonsINT > spoonCost)
+        {
+            animator.SetBool("default", false);
+            GameObject.Find("Main Camera").GetComponent<Animator>().Play("toKitchenAnimator");
+            animator.Play(name);
+            GameManager.spoonsINT -= spoonCost;
+            GameManager.minute += timeCost;
+            GameManager.moodINT += moodCost;
+        }
     }
 }

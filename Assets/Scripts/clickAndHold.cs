@@ -59,7 +59,7 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             
     }
 
-    private void Reset()
+    public void Reset()
     {
         pointerDown = false;
         pointerDownTimer = 0;

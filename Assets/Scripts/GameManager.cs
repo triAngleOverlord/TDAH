@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI spoon_UI;
     [SerializeField] private RawImage moodFace;
     public GameObject screen;
-    public GameObject nyanCat;
+    //public GameObject nyanCat;
+    public GameObject sleepCanvas;
 
     [Header("References")]
     public GameObject currentButton;
@@ -83,12 +84,14 @@ public class GameManager : MonoBehaviour
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
         lookingAround(false);
-        
+        sleepCanvas.SetActive(false);
+
         timeRate = 1f;
-        spoonsINT = 100;
-        moodINT = 6f;
+        spoonsINT = 20;
+        moodINT = 1f;
         day = 1;
         momentumRATE = 2f;
+        
 
     }
     void Start()
@@ -124,11 +127,12 @@ public class GameManager : MonoBehaviour
         {
             minute = 0;
             hour++;
-            if (hour == 24)
+            if (hour == 2)
             {
                 hour = 0;
                 day++;
                 dayUI.text = new string(day.ToString());
+                goToBed("It's getting late. Let's sleep and continue tomorrow.");
             }
 
             if (hour < 10)
@@ -207,6 +211,13 @@ public class GameManager : MonoBehaviour
             moodINT = 0;
         else if (moodINT > 10)
             moodINT = 10;
+
+        if (spoonsINT < 0)
+        {
+            spoonsINT = 0;
+            goToBed("I don't feel... anything...let's just... go to bed...");
+        }
+            
         yield return new WaitForSeconds(1);
         StartCoroutine(moodRate());
     }
@@ -324,5 +335,52 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Destroy(clone);
+    }
+
+    public void goToBed(string narrate)
+    {
+        StopAllCoroutines();
+        GameObject[] animators = GameObject.FindGameObjectsWithTag("anim");
+        foreach (var animator in animators)
+        {
+            animator.GetComponent<Animator>().SetBool("default", true);
+        }
+        clickAndHold_UI.SetActive(false);
+        sleepCanvas.SetActive(true);
+        sleepCanvas.GetComponentInChildren<Animator>().Play("dimToBlack");
+        sleepCanvas.GetComponentInChildren<TextMeshProUGUI>().text = new string(narrate);
+        lookingAround(false);
+        StartCoroutine(sleeping());
+    }
+
+    public IEnumerator sleeping()
+    {
+        yield return new WaitForSecondsRealtime(10);
+        var sleepHours = 0;
+        if (hour < 3)
+        {
+            moodINT = 4 - hour;
+            sleepHours = 7 - (int)hour;
+        }
+        else if (hour >20)
+        {
+            moodINT = 6 + (24 - (int)hour) ;
+            sleepHours = 7 + (24 - (int)hour);
+        }
+        else
+        {
+            moodINT = 5;
+            sleepHours = 5;
+        }
+            
+        spoonsINT = sleepHours * 10;
+        
+        GetComponent<Animator>().Play("inBed");
+        sleepCanvas.SetActive(false);
+        hour = 7;
+        minute = 0;
+        StartCoroutine(changeTheTime());
+        StartCoroutine(moodRate());
+        
     }
 }

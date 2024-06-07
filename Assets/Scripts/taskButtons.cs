@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,77 +39,97 @@ public class taskButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.spoonsINT == 0 || GameManager.spoonsINT <0)
+        {
+            switch (type)
+            {
+                case taskType.clicking: deactivateTaskClicking();
+                    break;
+                    case taskType.finding: deactivateLecture();
+                    break;
+                    case taskType.typing:
+                    GameManager.Instance.typingBar_UI.SetActive(false);
+                    GameManager.Instance.typingBar_UI.GetComponent<TMP_InputField>().text = new string("");
+                    GameManager.Instance.taskActive = false;
+                    inactive(true);
+                    GetComponent<Button>().interactable = true;
+                    GameManager.timeRate = 1;
+                    break;
+            }
+        }
     }
 
     public void activateTask()
     {
-        inactive(false);
-        GameManager.Instance.taskActive = true;
-        GetComponent<Button>().interactable = false;
-        GetComponent<Image>().raycastTarget = false;
-        GameManager.timeRate = timeRate;
-        switch (type)
+        if (GameManager.spoonsINT > 30f)
         {
-            case taskType.clicking:
-                momentumBar.SetActive(true);
-                GameManager.moodINT -= 2;
-                GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
-                break;
+            inactive(false);
+            GameManager.Instance.taskActive = true;
+            GetComponent<Button>().interactable = false;
+            GetComponent<Image>().raycastTarget = false;
+            GameManager.timeRate = timeRate;
+            switch (type)
+            {
+                case taskType.clicking:
+                    momentumBar.SetActive(true);
+                    GameManager.moodINT -= 2;
+                    GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
+                    break;
 
-            case taskType.finding:
-                GameManager.Instance.findingBar_UI.SetActive(true);
-                GameObject[] array = GameObject.FindGameObjectsWithTag("find");
-                if (GameManager.day == 1 || GameManager.day == 2|| GameManager.day == 3)
-                {
-                    //only activate the lecture button
-                    for (int i = 0; i < array.Length; i++)
+                case taskType.finding:
+                    GameManager.Instance.findingBar_UI.SetActive(true);
+                    GameObject[] array = GameObject.FindGameObjectsWithTag("find");
+                    array[0].GetComponent<Image>().color = Color.white;
+                    if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
                     {
-                        if (array[i].gameObject.name != "actuallyLecture")
+                        //only activate the lecture button
+                        for (int i = 0; i < array.Length; i++)
                         {
-                            array[i].gameObject.SetActive(false);
+                            if (array[i].gameObject.name != "actuallyLecture")
+                            {
+                                array[i].gameObject.SetActive(false);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    array[0].SetActive(false);
-                    for (int i = 1; i < array.Length; i++)
+                    else
                     {
-                        array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
-                        array[i].GetComponent<findVideo>().hasVideo = false;
-                        array[i].GetComponent<Image>().color = Color.white;
-                    }
-                    var lecture = UnityEngine.Random.Range(0, array.Length);
-                    array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
-                    array[lecture].GetComponent<findVideo>().hasVideo = true;
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        if (array[i].GetComponent<findVideo>().hasVideo == false)
+                        array[0].SetActive(false);
+                        for (int i = 1; i < array.Length; i++)
                         {
-                            array[i].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>(pickAVideo());
-                            array[i].GetComponent<findVideo>().hasVideo = true;
+                            array[i].GetComponentInChildren<TextMeshProUGUI>().text = generatePhrase();
+                            array[i].GetComponent<findVideo>().hasVideo = false;
+                            array[i].GetComponent<Image>().color = Color.white;
                         }
-                    } 
-                }
-                break;
+                        var lecture = UnityEngine.Random.Range(0, array.Length);
+                        array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
+                        array[lecture].GetComponent<findVideo>().hasVideo = true;
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            if (array[i].GetComponent<findVideo>().hasVideo == false)
+                            {
+                                array[i].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>(pickAVideo());
+                                array[i].GetComponent<findVideo>().hasVideo = true;
+                            }
+                        }
+                    }
+                    break;
 
-            case taskType.typing:
-                typingBar.SetActive(true);
-                int length = 0;
-                if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
-                    length = 7;
-                else if (GameManager.day == 4)
-                    length = 12;
-                else if (GameManager.day == 5)
-                    length = 20;
+                case taskType.typing:
+                    typingBar.SetActive(true);
+                    int length = 0;
+                    if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
+                        length = 7;
+                    else if (GameManager.day == 4)
+                        length = 12;
+                    else if (GameManager.day == 5)
+                        length = 20;
 
-                password = (generateRandomLetters(length));
-                GameObject.Find("password").GetComponent<TextMeshProUGUI>().text = new string(password);
-                break;
+                    password = (generateRandomLetters(length));
+                    GameObject.Find("password").GetComponent<TextMeshProUGUI>().text = new string(password);
+                    break;
+            }
+
         }
-
-        
         //animator.SetInteger("state", animatorINT);
 
     }
@@ -173,13 +194,13 @@ public class taskButtons : MonoBehaviour
             GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
             GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().hardSpoonCost;
         }
-        
+
     }
 
     public static string generatePhrase()
     {
-        List< string > phrases = new List< string >()
-        { 
+        List<string> phrases = new List<string>()
+        {
             "This is the lecture", "Definitely the lecture", "The boring lecture", "lecture", "LECTURE", "THE VERY IMPORTANT LECTURE", "Science Lecture",
             "Totally the lecture", "A Lecture", "Who Lecture?", "What lecture?", "That lecture", "I am not a lecture", "A video maybe relating to a lecture",
             "A video relating to the lecture"
@@ -208,5 +229,4 @@ public class taskButtons : MonoBehaviour
         GameManager.Instance.lookRightBTN.GetComponent<Button>().interactable = sate;
     }
 
-    
 }

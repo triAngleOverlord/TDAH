@@ -17,18 +17,23 @@ public class actionButtons : MonoBehaviour
 
     public enum actionType
     {
-         clickHold, scrub, goToBed
+         clickHold
     }
 
     public void doAction()
     {
-        GameObject[] allActionButtons = GameObject.FindGameObjectsWithTag("actionBTN");
-        for (int i = 0; i < allActionButtons.Length; i++)
+        if (GameManager.spoonsINT > spoonCost)
         {
-            allActionButtons[i].GetComponent<Button>().interactable = false;
+            GameObject[] allActionButtons = GameObject.FindGameObjectsWithTag("actionBTN");
+            for (int i = 0; i < allActionButtons.Length; i++)
+            {
+                allActionButtons[i].GetComponent<Button>().interactable = false;
+            }
+            beginCamAnim();
+            GameManager.Instance.currentButton = gameObject;
+
         }
-        beginCamAnim();
-        GameManager.Instance.currentButton = gameObject;
+        
         
 
     }
@@ -36,6 +41,7 @@ public class actionButtons : MonoBehaviour
     public void beginCamAnim()
     {
         GameObject.Find("Main Camera").GetComponent<Animator>().Play(beginAnimation);
+        animator.SetBool("default", false);
         animator.SetInteger("state", animatorInteger);
     }
 

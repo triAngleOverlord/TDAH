@@ -8,6 +8,7 @@ TagManager:
   - taskBTN
   - actionBTN
   - thought
+  - anim
   layers:
   - Default
   - TransparentFX
