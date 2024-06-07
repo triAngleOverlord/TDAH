@@ -8,7 +8,6 @@ public class singleClickAction : MonoBehaviour
     public int timeCost;
 
     [SerializeField] private Animator animator = null;
-    public bool singleLoop;
 
     // Update is called once per frame
     void Update()
@@ -21,5 +20,17 @@ public class singleClickAction : MonoBehaviour
         GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
         animator.Play(name);
         //singleLoop = false;
+    }
+
+    public void patioAction()
+    {
+        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toPetDawg");
+        animator.Play(name);
+    }
+
+    public void kitchenAction()
+    {
+        GameObject.Find("Main Camera").GetComponent<Animator>().Play("toKitchenAnimator");
+        animator.Play(name);
     }
 }
