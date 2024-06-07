@@ -11,7 +11,13 @@ public class momentumBTN : MonoBehaviour
         {
             GameManager.spoonsINT -= taskButtons.hardSpoonCost;
             GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
-            GameManager.momentumINT += 10;
+            GameManager.momentumINT += 8;
+
+            if (GameManager.momentumINT > 100 || GameManager.momentumINT == 100)
+            {
+                taskButtons.deactivateTaskClicking();
+                GameManager.momentumINT = 0;
+            }
             if (GameManager.day == 4 || GameManager.day == 5 )
             {
                 Vector3 temp = new Vector3();

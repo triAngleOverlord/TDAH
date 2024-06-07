@@ -29,5 +29,10 @@ public class alertObservers : MonoBehaviour
         {
             GameObject.Find("Main Camera").GetComponent<Animator>().Play("backPetDawg");
         }
+
+        else if (message.Equals("finishKitchen"))
+        {
+            GameObject.Find("Main Camera").GetComponent<Animator>().Play("backKitchenAnimator");
+        }
     }
 }

@@ -5,15 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using System;
+using System.Threading;
 
 public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool pointerDown;
-    private float pointerDownTimer;
+    public float pointerDownTimer;
 
     public actionButtons currentButton;
 
     public int spoonCost;
+    public int timeCost;
+    public int moodCost;
 
     public float requiredHoldTime;
 
@@ -23,12 +26,14 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;
+        StartCoroutine(addTime());
         //Debug.Log("Pointer Down");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDown = false;
+        StopAllCoroutines();
     }
 
     private void Update()
@@ -66,5 +71,14 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             allActionButtons[i].GetComponent<Button>().interactable = true;
         }
         currentButton.animator.SetInteger("state", currentButton.animatorInteger + 1);
+        GameManager.spoonsINT -= spoonCost;
+        GameManager.moodINT += moodCost;
+    }
+
+    public IEnumerator addTime()
+    {
+        GameManager.minute += timeCost;
+        yield return new WaitForSeconds(2);
+        StartCoroutine(addTime());
     }
 }

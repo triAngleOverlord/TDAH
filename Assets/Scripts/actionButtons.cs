@@ -7,6 +7,8 @@ public class actionButtons : MonoBehaviour
 {
     public int spoonCost;
     public int timeCost;
+    public int moodCost;
+
     public actionType type;
     public string beginAnimation;
 
@@ -45,10 +47,10 @@ public class actionButtons : MonoBehaviour
             case actionType.clickHold:
                 
                 GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().spoonCost = spoonCost;
+                GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().moodCost = moodCost;
+                GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().timeCost = timeCost;
+                GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().pointerDownTimer = 0.5f;
                 GameObject.Find("ClickHold_BTN").GetComponent<clickAndHold>().currentButton = this;
-                break;
-
-            case actionType.scrub:
                 break;
         }
     }

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Stats")]
     public static int spoonsINT;
-    public float moodINT;
+    public static float moodINT;
     public MoodStates moodState;
     public static float momentumINT;
     public static float momentumRATE;//real time seconds
@@ -75,18 +75,18 @@ public class GameManager : MonoBehaviour
 
         timeRate = 0.001f;
         position = 0;
-        hour = 14;
+        hour = 7;
 
         momentumBar_UI.SetActive(false);
         typingBar_UI.SetActive(false);
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
-
+        lookingAround(false);
         
         timeRate = 1f;
         spoonsINT = 100;
-        moodINT = 5.9f;
+        moodINT = 6f;
         day = 1;
         momentumRATE = 2f;
 
@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
                 momentumINT = 49;
         }
 
+       spoon_UI.GetComponent<TextMeshProUGUI>().text = spoonsINT.ToString(); 
        
     }
 
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         minute++;
 
-        if (minute == 60)
+        if (minute == 60 || minute > 60)
         {
             minute = 0;
             hour++;
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(timeRate);
         if (taskActive == true && day != 1)
         {
+            Debug.Log(day);
             int chance = 0;
             if (day == 2)
                 chance = 2;
@@ -171,9 +173,6 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(changeTheTime());
     }
-
-
-    
 
     public IEnumerator moodRate()
     {
@@ -212,7 +211,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(moodRate());
     }
 
-    
 
     public void changeAnimationUp()
     {

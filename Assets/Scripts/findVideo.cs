@@ -28,7 +28,7 @@ public class findVideo : MonoBehaviour
         //Debug.Log(vPlayer.clip.ToString());
         if (vPlayer.clip.ToString() == "whistle (UnityEngine.VideoClip)")
         {
-            GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().softSpoonCost;
+            GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().hardSpoonCost;
             //Debug.Log("watching lecture");
             GameManager.Instance.spoonNotifications("spoonDecrease_UI");
             
@@ -44,7 +44,7 @@ public class findVideo : MonoBehaviour
 
     public void stopVid()
     {
-        GameObject.Find("watchLecture").GetComponent<taskButtons>().lastestPlayer.gameObject.GetComponent<findVideo>().StopAllCoroutines();
+        //GameObject.Find("watchLecture").GetComponent<taskButtons>().lastestPlayer.gameObject.GetComponent<findVideo>().StopAllCoroutines();
         GameObject.Find("watchLecture").GetComponent<taskButtons>().screen.SetActive(false);
         GameObject.Find("watchLecture").GetComponent<taskButtons>().lastestPlayer.Stop();
         GameManager.Instance.findingBar_UI.SetActive(true);
@@ -53,8 +53,9 @@ public class findVideo : MonoBehaviour
 
     public IEnumerator countingLectureProgress()
     {
-        yield return new WaitForSeconds(1);
-        GameManager.lectureProgress += 1;
-        StartCoroutine(countingLectureProgress());
+        yield return new WaitForSeconds(4.8f);
+        GameManager.lectureProgress += 7;
+        stopVid();
+        GameObject.Find("watchLecture").GetComponent<taskButtons>().deactivateLecture();
     }
 }

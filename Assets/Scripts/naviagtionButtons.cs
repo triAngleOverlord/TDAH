@@ -18,12 +18,17 @@ public class naviagtionButtons : MonoBehaviour
         else if (gameObject.name == "backLiving")
         {
             GameManager.Instance.position = 0;
-            StartCoroutine(backToRoomUI(4));
+            StartCoroutine(backToRoomUI(2));
         }
         else if (gameObject.name == "backBathroom")
         {
             GameManager.Instance.position = 0;
-            StartCoroutine(backToRoomUI(5));
+            StartCoroutine(backToRoomUI(2));
+        }
+        else if (gameObject.name == "getOutOfBed")
+        {
+            GameManager.Instance.position = 0;
+            StartCoroutine(backToRoomUI(2));
         }
     }
 

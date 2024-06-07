@@ -13,10 +13,10 @@ public class taskButtons : MonoBehaviour
     public taskType type;
     public int hardSpoonCost;
     public int softSpoonCost;
+    public float timeRate;
 
     [Header("Momentum Bar Only")]
     private GameObject momentumBar;
-    public int divider;
     [Header("Typing Bar Only")]
     private GameObject typingBar;
     public string password = "";
@@ -47,10 +47,12 @@ public class taskButtons : MonoBehaviour
         GameManager.Instance.taskActive = true;
         GetComponent<Button>().interactable = false;
         GetComponent<Image>().raycastTarget = false;
+        GameManager.timeRate = timeRate;
         switch (type)
         {
             case taskType.clicking:
                 momentumBar.SetActive(true);
+                GameManager.moodINT -= 2;
                 GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
                 break;
 
@@ -118,17 +120,21 @@ public class taskButtons : MonoBehaviour
         GetComponent<Image>().raycastTarget = true;
         momentumBar.SetActive(false);
         animator.SetInteger("state", 2);
+        GameManager.timeRate = 1;
         inactive(true);
 
     }
 
     public void deactivateLecture()
     {
+        lastestPlayer.Stop();
         screen.SetActive(false);
         GameManager.Instance.taskActive = false;
         GameManager.Instance.findingBar_UI.SetActive(false);
         //record how long they watched the lecture
+        GameManager.timeRate = 1;
         GetComponent<Button>().interactable = true;
+        inactive(true);
     }
 
     public static string generateRandomLetters(int num)
@@ -155,7 +161,11 @@ public class taskButtons : MonoBehaviour
             GameManager.Instance.spoonNotifications("SpoonDecrease_UI");
             GameManager.spoonsINT -= GameObject.Find("typing").GetComponent<taskButtons>().softSpoonCost;
             GameManager.Instance.typingBar_UI.SetActive(false);
-            GameObject.Find("typing").GetComponent<taskButtons>().deactivateTaskClicking();
+            GameManager.Instance.typingBar_UI.GetComponent<TMP_InputField>().text = new string("");
+            GameManager.Instance.taskActive = false;
+            inactive(true);
+            GetComponent<Button>().interactable = true;
+            GameManager.timeRate = 1;
         }
         else
         {

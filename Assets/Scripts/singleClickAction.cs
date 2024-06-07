@@ -6,6 +6,7 @@ public class singleClickAction : MonoBehaviour
 {
     public int spoonCost;
     public int timeCost;
+    public int moodCost;
 
     [SerializeField] private Animator animator = null;
 
@@ -19,6 +20,9 @@ public class singleClickAction : MonoBehaviour
     {
         GameObject.Find("Main Camera").GetComponent<Animator>().Play("toSinkAnimation");
         animator.Play(name);
+        GameManager.spoonsINT -= spoonCost;
+        GameManager.minute += timeCost;
+        GameManager.moodINT += moodCost;
         //singleLoop = false;
     }
 
@@ -26,11 +30,17 @@ public class singleClickAction : MonoBehaviour
     {
         GameObject.Find("Main Camera").GetComponent<Animator>().Play("toPetDawg");
         animator.Play(name);
+        GameManager.spoonsINT -= spoonCost;
+        GameManager.minute += timeCost;
+        GameManager.moodINT += moodCost;
     }
 
     public void kitchenAction()
     {
         GameObject.Find("Main Camera").GetComponent<Animator>().Play("toKitchenAnimator");
         animator.Play(name);
+        GameManager.spoonsINT -= spoonCost;
+        GameManager.minute += timeCost;
+        GameManager.moodINT += moodCost;
     }
 }
