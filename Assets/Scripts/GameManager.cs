@@ -87,11 +87,11 @@ public class GameManager : MonoBehaviour
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
         posterBTN.SetActive(false);
-        //addPoster();
+        
         lookingAround(false);
         sleepCanvas.SetActive(false);
         posterProgressUI.gameObject.SetActive(false);
-        
+        //addPoster();
 
         timeRate = 1f;
         spoonsINT = 100;
@@ -125,8 +125,8 @@ public class GameManager : MonoBehaviour
             }
             else if (momentumINT < 0|| momentumINT == 0)
                 momentumINT = 0;
-            else if (momentumINT > 0 || momentumINT == 49)
-                momentumINT = 49;
+            else if (momentumINT > 0 || momentumINT == 100)
+                momentumINT = 100;
         }
 
        spoon_UI.GetComponent<TextMeshProUGUI>().text = spoonsINT.ToString(); 

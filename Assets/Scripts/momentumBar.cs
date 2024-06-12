@@ -17,7 +17,7 @@ public class momentumBar : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (name == "momentumBar")
+        if (name == "momentum_UI")
             value = GameManager.momentumINT;
         else if (name == "EssayProgress")
             value = GameManager.essayProgress;
@@ -31,6 +31,6 @@ public class momentumBar : MonoBehaviour
         if (value >100)
             value = 100;
         slider.value = value;
-        percentage.text = new string (value.ToString() + "%");
+        percentage.text = ((int)value).ToString() + "%";
     }
 }
