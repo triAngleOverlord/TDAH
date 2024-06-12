@@ -49,7 +49,7 @@ public class clickAndHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
                 Reset();
             }
-            slider.value = pointerDownTimer / requiredHoldTime;
+            slider.value = pointerDownTimer +1 / requiredHoldTime;
         }
         else
         {

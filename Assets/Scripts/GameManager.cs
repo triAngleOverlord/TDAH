@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         reportsProgress = 6;
         posterProgress = 0;
 
-        thoughtChance = 20;
+        thoughtChance = 10;
         commentChance = 20;
         
 
@@ -389,7 +389,7 @@ public class GameManager : MonoBehaviour
     {
         if (day == 4)
             addPoster();
-        thoughtChance += 2;
+        thoughtChance += 5;
         dayUI.text = new string(day.ToString());
         lookingAround(false);
         yield return new WaitForSecondsRealtime(10);
