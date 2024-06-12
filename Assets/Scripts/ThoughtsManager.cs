@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static thoughtActions;
@@ -11,35 +12,10 @@ public class ThoughtsManager : MonoBehaviour
 
     public GameObject thoughtBubble;
 
-    public static int thoughtStage =0;
-
-    public static string[] tutorialTexts = new string [] 
-    {
-        "Let's get up on time!",
-        "I've got a lot to do. Let me first check my to do list above.",
-        "5 days till exams. Manageable!",
-        "To get the day going, let's do hygenic normal person things!",
-        "Toilet", "Wash hands", "Brush teeth", "Wash face", "Moisturise",
-        "I am feeling GOOD!", "Let's get started on work!",
-        "Oh I'm feeling hungry.", "Breakfast first! Can't work on an empty stomach.","I need some water",
-        "Oh, I can't forget to say good morning to my pupper outside!",
-        "Alright. What time is it? Lets go check my computer.",
-        "Ok it's time to get started actually.", "Boring lecture first...", "Nope, can't get distracted. Go away nyan cat!",
-        "Ok, next the essay", "I'm starting to feel a bit tired. I think that's enough writing for now",
-        "Let's check how much progress I've made", "Pretty good progress. I think I deserve a snack!",
-        "Let's continue working!",
-        "I feel really strange...",
-        "It's late now... let's go shower and have dinner... maybe I'll feel better afterwards",
-        "Perhaps its time to go to bed"
-    };
-
-    public static string[] peeTexts = new string[]
-    {
-        "I need to pee."
-    };
+    
     void Start()
     {
-        instantiateThought(tutorialTexts[thoughtStage], "getOutOfBed", thoughtActions.actionsToDo.noSnooze);
+        StartCoroutine(thoughtChance());
     }
 
     // Update is called once per frame
@@ -48,15 +24,55 @@ public class ThoughtsManager : MonoBehaviour
         
     }
 
-    public static void instantiateThought(string text, string objectName, actionsToDo act)
+    public static void instantiateThought(string text, string objectName)
     {
+        //Debug.Log(objectName);
         var clone = GameObject.Find(objectName).AddComponent<thoughtActions>();
-        clone.GetComponent<thoughtActions>().doThis = act;
         var firstThought = Instantiate(Resources.Load<GameObject>("thoughtBubble"));
         firstThought.GetComponentInChildren<TextMeshProUGUI>().text = new string(text);
         clone.GetComponent<thoughtActions>().whichThought = firstThought;
         clone.GetComponent<Button>().onClick.AddListener(() => clone.GetComponent<thoughtActions>().doesAction());
 
     }  
+
+    public void randomThought()
+    {
+        int num = Random.Range(0,10);
+
+        if (num == 0)
+            instantiateThought("My dog must be feeling lonely right now (-mood)", "petDawg");
+        else if (num == 1)
+            instantiateThought("When is the last time I had some water? (-mood)", "drinkWater");
+        else if (num == 2)
+            instantiateThought("Feeling a void in my stomach (-mood)", "eatFood");
+        else if (num == 3)
+            instantiateThought("Maybe I need a snack to get back into the swing of things (-mood)", "snack");
+        else if (num == 4)
+            instantiateThought("My face feels so oily (-mood)", "washFace");
+        else if (num == 5)
+            instantiateThought("There's a chunk of leftovers between my teeth (-mood)", "brushTeeth");
+        else if (num == 6)
+            instantiateThought("My face feels so dry (-mood)", "moisturise");
+        else if (num == 7)
+            instantiateThought("Eww I smell really bad (-mood)", "shower");
+        else if (num == 8)
+            instantiateThought("I really need to goooo! (-mood)", "toilet");
+        else if (num == 9)
+            instantiateThought("Feeling really drained right now (-mood)", "goToSleep");
+        else if (num == 10)
+            instantiateThought("I wonder if my pupper is doing alright? (-mood)", "petDawg");
+        
+
+    }
+
+    public IEnumerator thoughtChance()
+    {
+        int chance = Random.Range(0, 100);
+        //Debug.Log(chance);
+        if (chance < GameManager.thoughtChance && chance > 0.0f)
+            randomThought();
+        yield return new WaitForSecondsRealtime(2);
+        StartCoroutine(thoughtChance());
+    }
 
 }

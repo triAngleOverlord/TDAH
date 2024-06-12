@@ -12,21 +12,9 @@ public class otherStats : MonoBehaviour
     public float pee; //max 3
     
 
-    public IEnumerator allStats()
-    {
-        hygiene -= 0.1f;
-        pee -= 0.1f;
-        hunger -= 0.1f;
-        sleep -= 0.1f;
-
-        yield return new WaitForSecondsRealtime(1);
-
-        //apply thoughts stats at half way and what happens at 0
-    }
 
     public void instantiateThought(int num)
     {
         var firstThought = Instantiate(Resources.Load<GameObject>("thoughtBubble"));
-        firstThought.GetComponentInChildren<TextMeshProUGUI>().text = new string(ThoughtsManager.tutorialTexts[num]);
     }
 }

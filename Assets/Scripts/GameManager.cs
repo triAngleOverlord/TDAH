@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public MoodStates moodState;
     public static float momentumINT;
     public static float momentumRATE;//real time seconds
+    public static float thoughtChance;
+    public static float commentChance;
 
     [Header("Objective")]
     public static float essayProgress;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject lookDownBTN;
     public GameObject lookLeftBTN;
     public GameObject lookRightBTN;
+    public GameObject posterBTN;
 
     [Header("Clock Stuff")]
     [SerializeField] TextMeshProUGUI hourHand;
@@ -83,19 +86,30 @@ public class GameManager : MonoBehaviour
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
+        addPoster();
         lookingAround(false);
         sleepCanvas.SetActive(false);
+        posterProgressUI.gameObject.SetActive(true);
+        posterBTN.SetActive(false);
 
         timeRate = 1f;
-        spoonsINT = 20;
-        moodINT = 1f;
+        spoonsINT = 100;
+        moodINT = 10f;
         day = 1;
         momentumRATE = 2f;
+        essayProgress = 10;
+        lectureProgress = 2;
+        reportsProgress = 6;
+        posterProgress = 0;
+
+        thoughtChance = 5;
+        commentChance = 20;
         
 
     }
     void Start()
     {
+        
         StartCoroutine(changeTheTime());
         StartCoroutine(moodRate());
     }
@@ -349,12 +363,18 @@ public class GameManager : MonoBehaviour
         sleepCanvas.SetActive(true);
         sleepCanvas.GetComponentInChildren<Animator>().Play("dimToBlack");
         sleepCanvas.GetComponentInChildren<TextMeshProUGUI>().text = new string(narrate);
-        lookingAround(false);
+        //lookingAround(false);
         StartCoroutine(sleeping());
     }
 
     public IEnumerator sleeping()
     {
+        day += 1;
+        if (day == 2)
+            addPoster();
+        thoughtChance += 2;
+        dayUI.text = new string(day.ToString());
+        lookingAround(false);
         yield return new WaitForSecondsRealtime(10);
         var sleepHours = 0;
         if (hour < 3)
@@ -377,12 +397,31 @@ public class GameManager : MonoBehaviour
         
         GetComponent<Animator>().Play("inBed");
         sleepCanvas.SetActive(false);
-        day += 1;
-        dayUI.text = new string(day.ToString());
+        
         hour = 7;
         minute = 0;
         StartCoroutine(changeTheTime());
         StartCoroutine(moodRate());
         
+    }
+
+    public void addPoster()
+    {
+        
+        ThoughtsManager.instantiateThought("Mom said it looked like I wasn't working. Now I have a poster to do...", "LookUp_BTN");
+        ThoughtsManager.instantiateThought("If I don't work on it, she'll bug me about it.", "LookUp_BTN");
+        posterProgressUI.gameObject.SetActive(true);
+        posterBTN.SetActive(true);
+        StartCoroutine(commentLikelyHood());
+    }
+
+    public IEnumerator commentLikelyHood()
+    {
+        int num = Random.Range(0, 100);
+        if (num > 0 && num < commentChance)
+            Instantiate(Resources.Load("parentComment"), GameObject.Find("CommentsPanel").transform);
+        yield return new WaitForSecondsRealtime(10);
+        if (posterProgress != 100)
+            StartCoroutine(commentLikelyHood());
     }
 }

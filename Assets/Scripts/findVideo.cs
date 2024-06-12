@@ -31,7 +31,6 @@ public class findVideo : MonoBehaviour
             GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().hardSpoonCost;
             //Debug.Log("watching lecture");
             GameManager.Instance.spoonNotifications("spoonDecrease_UI");
-            
         }
         else if (vPlayer.clip.ToString() != "whistle (UnityEngine.VideoClip)")
         {

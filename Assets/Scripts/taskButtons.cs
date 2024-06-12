@@ -27,7 +27,7 @@ public class taskButtons : MonoBehaviour
 
     public enum taskType
     {
-        clicking, finding, typing
+        essay, lecture, report, poster
     }
 
     void Start()
@@ -43,11 +43,11 @@ public class taskButtons : MonoBehaviour
         {
             switch (type)
             {
-                case taskType.clicking: deactivateTaskClicking();
+                case taskType.essay: deactivateTaskClicking();
                     break;
-                    case taskType.finding: deactivateLecture();
+                case taskType.lecture: deactivateLecture();
                     break;
-                    case taskType.typing:
+                case taskType.report:
                     GameManager.Instance.typingBar_UI.SetActive(false);
                     GameManager.Instance.typingBar_UI.GetComponent<TMP_InputField>().text = new string("");
                     GameManager.Instance.taskActive = false;
@@ -55,13 +55,15 @@ public class taskButtons : MonoBehaviour
                     GetComponent<Button>().interactable = true;
                     GameManager.timeRate = 1;
                     break;
+                case taskType.poster: deactivateTaskClicking();
+                    break;
             }
         }
     }
 
     public void activateTask()
     {
-        if (GameManager.spoonsINT > 30f)
+        if (GameManager.spoonsINT > hardSpoonCost)
         {
             inactive(false);
             GameManager.Instance.taskActive = true;
@@ -70,13 +72,19 @@ public class taskButtons : MonoBehaviour
             GameManager.timeRate = timeRate;
             switch (type)
             {
-                case taskType.clicking:
+                case taskType.poster:
                     momentumBar.SetActive(true);
                     GameManager.moodINT -= 2;
                     GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
                     break;
 
-                case taskType.finding:
+                case taskType.essay:
+                    momentumBar.SetActive(true);
+                    GameManager.moodINT -= 2;
+                    GameObject.Find("MomentumIncreaseBTN").GetComponent<momentumBTN>().taskButtons = this;
+                    break;
+
+                case taskType.lecture:
                     GameManager.Instance.findingBar_UI.SetActive(true);
                     GameObject[] array = GameObject.FindGameObjectsWithTag("find");
                     array[0].GetComponent<Image>().color = Color.white;
@@ -114,7 +122,7 @@ public class taskButtons : MonoBehaviour
                     }
                     break;
 
-                case taskType.typing:
+                case taskType.report:
                     typingBar.SetActive(true);
                     int length = 0;
                     if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
@@ -144,6 +152,19 @@ public class taskButtons : MonoBehaviour
         GameManager.timeRate = 1;
         inactive(true);
 
+        if (type == taskType.essay)
+        {
+            GameManager.essayProgress += 7;
+            if (GameManager.essayProgress == 100 || GameManager.essayProgress >100)
+                gameObject.SetActive(false);
+        }
+        else if (type == taskType.poster)
+        {
+            GameManager.posterProgress += 7;
+            GameManager.commentChance -= 2;
+            if (GameManager.posterProgress == 100 || GameManager.posterProgress > 100)
+                gameObject.SetActive(false);
+        }
     }
 
     public void deactivateLecture()
@@ -156,6 +177,8 @@ public class taskButtons : MonoBehaviour
         GameManager.timeRate = 1;
         GetComponent<Button>().interactable = true;
         inactive(true);
+        if (GameManager.lectureProgress == 100 || GameManager.lectureProgress > 100)
+            gameObject.SetActive(false);
     }
 
     public static string generateRandomLetters(int num)
@@ -187,6 +210,9 @@ public class taskButtons : MonoBehaviour
             inactive(true);
             GetComponent<Button>().interactable = true;
             GameManager.timeRate = 1;
+            GameManager.reportsProgress += 5;
+            if (GameManager.reportsProgress == 100 || GameManager.reportsProgress > 100)
+                gameObject.SetActive(false);
         }
         else
         {
