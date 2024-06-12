@@ -19053,7 +19053,7 @@ MonoBehaviour:
   moodCost: 1
   type: 0
   beginAnimation: 
-  animator: {fileID: 0}
+  animator: {fileID: 519420034}
   animatorInteger: 0
 --- !u!1 &1180401121
 GameObject:

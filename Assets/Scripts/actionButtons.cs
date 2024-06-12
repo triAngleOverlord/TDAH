@@ -75,10 +75,9 @@ public class actionButtons : MonoBehaviour
 
     public IEnumerator napTime()
     {
-        GetComponent<Animator>().Play("inBed");
-        GameManager.Instance.sleepCanvas.SetActive(false);
         yield return new WaitForSeconds(5);
-
+        GameObject.Find("Main Camera").GetComponent<Animator>().Play("inBed");
+        GameManager.Instance.sleepCanvas.SetActive(false);
     }
 
     public void outOfBed()
