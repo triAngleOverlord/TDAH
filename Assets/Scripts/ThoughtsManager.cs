@@ -13,8 +13,9 @@ public class ThoughtsManager : MonoBehaviour
     public GameObject thoughtBubble;
 
     
-    void Start()
+    void Awake()
     {
+        instantiateThought("5 days till the exam. How much do I have left to do?", "LookUp_BTN");
         StartCoroutine(thoughtChance());
     }
 

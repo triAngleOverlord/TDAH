@@ -25,7 +25,7 @@ public class momentumBTN : MonoBehaviour
                     taskButtons.deactivateTaskClicking();
                     GameManager.momentumINT = 0;
                 }
-                if (GameManager.day == 4 || GameManager.day == 5 )
+                if (GameManager.day == 2 || GameManager.day == 1 )
                 {
                     Vector3 temp = new Vector3();
                     while ((temp.x > -498f && temp.x < 623) && (temp.y > -110f && temp.y < 110))

@@ -26,13 +26,13 @@ public class findVideo : MonoBehaviour
             //GameManager.Instance.findingBar_UI.SetActive(false);
         }
         //Debug.Log(vPlayer.clip.ToString());
-        if (vPlayer.clip.ToString() == "whistle (UnityEngine.VideoClip)")
+        if (vPlayer.clip.ToString() == "lecture (UnityEngine.VideoClip)")
         {
             GameManager.spoonsINT -= GameObject.Find("watchLecture").GetComponent<taskButtons>().hardSpoonCost;
             //Debug.Log("watching lecture");
             GameManager.Instance.spoonNotifications("spoonDecrease_UI");
         }
-        else if (vPlayer.clip.ToString() != "whistle (UnityEngine.VideoClip)")
+        else if (vPlayer.clip.ToString() != "lecture (UnityEngine.VideoClip)")
         {
             GameManager.spoonsINT += 5;////BALANCE
             GameManager.moodINT += 0.1f;

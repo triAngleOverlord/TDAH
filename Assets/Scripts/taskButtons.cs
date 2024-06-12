@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -88,7 +85,7 @@ public class taskButtons : MonoBehaviour
                     GameManager.Instance.findingBar_UI.SetActive(true);
                     GameObject[] array = GameObject.FindGameObjectsWithTag("find");
                     array[0].GetComponent<Image>().color = Color.white;
-                    if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
+                    if (GameManager.day == 5 || GameManager.day == 4 || GameManager.day == 3)
                     {
                         //only activate the lecture button
                         for (int i = 0; i < array.Length; i++)
@@ -109,7 +106,7 @@ public class taskButtons : MonoBehaviour
                             array[i].GetComponent<Image>().color = Color.white;
                         }
                         var lecture = UnityEngine.Random.Range(0, array.Length);
-                        array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/whistle");
+                        array[lecture].GetComponent<VideoPlayer>().clip = Resources.Load<VideoClip>("Videos/lecture");
                         array[lecture].GetComponent<findVideo>().hasVideo = true;
                         for (int i = 0; i < array.Length; i++)
                         {
@@ -125,11 +122,11 @@ public class taskButtons : MonoBehaviour
                 case taskType.report:
                     typingBar.SetActive(true);
                     int length = 0;
-                    if (GameManager.day == 1 || GameManager.day == 2 || GameManager.day == 3)
+                    if (GameManager.day == 5 || GameManager.day == 4 || GameManager.day == 3)
                         length = 7;
-                    else if (GameManager.day == 4)
+                    else if (GameManager.day == 2)
                         length = 12;
-                    else if (GameManager.day == 5)
+                    else if (GameManager.day == 1)
                         length = 20;
 
                     password = (generateRandomLetters(length));
@@ -240,7 +237,7 @@ public class taskButtons : MonoBehaviour
     {
         List<string> videos = new List<string>()
         {
-            "Videos/noot", "Videos/miku", "Videos/remmi", "Videos/dragon", "Videos/icecream", "Videos/rick"
+            "Videos/noot", "Videos/miku", "Videos/remmi", "Videos/dragon", "Videos/icecream", "Videos/rick", "Videos/whistle"
         };
 
         string vid = videos[UnityEngine.Random.Range(0, videos.Count)];

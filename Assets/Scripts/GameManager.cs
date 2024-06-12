@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         screen.SetActive(false);
         posterBTN.SetActive(false);
         
-        lookingAround(false);
+        
         sleepCanvas.SetActive(false);
         posterProgressUI.gameObject.SetActive(false);
         //addPoster();
@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        lookingAround(false);
         StartCoroutine(changeTheTime());
         StartCoroutine(moodRate());
     }
@@ -141,12 +142,19 @@ public class GameManager : MonoBehaviour
         {
             minute = 0;
             hour++;
-            if (hour == 2)
+            if (hour == 24)
             {
                 hour = 0;
+                
+            }
+            if (hour == 2)
+            {
                 day--;
                 dayUI.text = new string(day.ToString());
-                goToBed("It's getting late. Let's sleep and continue tomorrow.");
+                if (day == 0)
+                    goToBed("The exam is tomorrow");
+                else
+                    goToBed("2am. It's getting late. Let's sleep and continue tomorrow.");
             }
 
             if (hour < 10)
@@ -170,18 +178,18 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(timeRate);
-        if (taskActive == true && day != 1)
+        if (taskActive == true && day != 5)
         {
-            Debug.Log(day);
-            int chance = 0;
-            if (day == 2)
+            //Debug.Log(day);
+            int chance = 1;
+            if (day == 4)
                 chance = 2;
             else if (day == 3)
-                chance = 5;
-            else if (day == 4)
-                chance = 7;
-            else if (day == 5)
-                chance = 10;
+                chance = 3;
+            else if (day == 2)
+                chance = 4;
+            else if (day == 1)
+                chance = 4;
             int nyanCatChance = Random.Range(0, 100);
             if (nyanCatChance > 1 && nyanCatChance < chance)
             {
@@ -353,12 +361,22 @@ public class GameManager : MonoBehaviour
 
     public void goToBed(string narrate)
     {
+        GameObject[] cats = GameObject.FindGameObjectsWithTag("nyan");
+        if (cats != null)
+        {
+            foreach (GameObject c in cats)
+            {
+                Destroy(c);
+            }
+        }
+
         StopAllCoroutines();
         GameObject[] animators = GameObject.FindGameObjectsWithTag("anim");
         foreach (var animator in animators)
         {
             animator.GetComponent<Animator>().SetBool("default", true);
         }
+        GameObject.Find("watchLecture").GetComponent<taskButtons>().deactivateLecture();
         clickAndHold_UI.SetActive(false);
         sleepCanvas.SetActive(true);
         sleepCanvas.GetComponentInChildren<Animator>().Play("dimToBlack");
@@ -371,8 +389,6 @@ public class GameManager : MonoBehaviour
     {
         if (day == 4)
             addPoster();
-        else if (day ==0)
-            //endScreen
         thoughtChance += 2;
         dayUI.text = new string(day.ToString());
         lookingAround(false);
@@ -395,15 +411,24 @@ public class GameManager : MonoBehaviour
         }
             
         spoonsINT = sleepHours * 10;
-        
-        GetComponent<Animator>().Play("inBed");
+        if (day == 0)
+        {
+            GetComponent<Animator>().Play("endScreen");
+            GameObject.Find("MainPanel").SetActive(false);
+        }
+        else
+        {
+            GetComponent<Animator>().Play("inBed");
+            
+
+            timeRate = 1;
+            hour = 7;
+            hourHand.text = new string("0" + hour.ToString() + ":");
+            minute = 0;
+            StartCoroutine(changeTheTime());
+            StartCoroutine(moodRate());
+        }
         sleepCanvas.SetActive(false);
-        
-        hour = 7;
-        minute = 0;
-        StartCoroutine(changeTheTime());
-        StartCoroutine(moodRate());
-        
     }
 
     public void addPoster()
@@ -424,5 +449,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(10);
         if (posterProgress != 100)
             StartCoroutine(commentLikelyHood());
+    }
+
+    public void exit()
+    {
+        Application.Quit();
     }
 }

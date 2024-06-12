@@ -9,6 +9,7 @@ TagManager:
   - actionBTN
   - thought
   - anim
+  - nyan
   layers:
   - Default
   - TransparentFX
