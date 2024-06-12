@@ -86,11 +86,12 @@ public class GameManager : MonoBehaviour
         clickAndHold_UI.SetActive(false);
         findingBar_UI.SetActive(false);
         screen.SetActive(false);
-        addPoster();
+        posterBTN.SetActive(false);
+        //addPoster();
         lookingAround(false);
         sleepCanvas.SetActive(false);
-        posterProgressUI.gameObject.SetActive(true);
-        posterBTN.SetActive(false);
+        posterProgressUI.gameObject.SetActive(false);
+        
 
         timeRate = 1f;
         spoonsINT = 100;
@@ -109,7 +110,6 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
         StartCoroutine(changeTheTime());
         StartCoroutine(moodRate());
     }
@@ -407,11 +407,11 @@ public class GameManager : MonoBehaviour
 
     public void addPoster()
     {
-        
-        ThoughtsManager.instantiateThought("Mom said it looked like I wasn't working. Now I have a poster to do...", "LookUp_BTN");
-        ThoughtsManager.instantiateThought("If I don't work on it, she'll bug me about it.", "LookUp_BTN");
-        posterProgressUI.gameObject.SetActive(true);
         posterBTN.SetActive(true);
+        ThoughtsManager.instantiateThought("Mom said it looked like I wasn't working. Now I have a poster to do...", "LookUp_BTN");
+        ThoughtsManager.instantiateThought("If I don't work on it, she'll bug me about it.", "Poster_BTN");
+        posterProgressUI.gameObject.SetActive(true);
+        
         StartCoroutine(commentLikelyHood());
     }
 
