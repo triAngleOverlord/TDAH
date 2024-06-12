@@ -28,11 +28,14 @@ public class ThoughtsManager : MonoBehaviour
     public static void instantiateThought(string text, string objectName)
     {
         //Debug.Log(objectName);
+        if (GameObject.Find(objectName).GetComponent<thoughtActions>() == null)
+        {
         var clone = GameObject.Find(objectName).AddComponent<thoughtActions>();
         var firstThought = Instantiate(Resources.Load<GameObject>("thoughtBubble"));
         firstThought.GetComponentInChildren<TextMeshProUGUI>().text = new string(text);
         clone.GetComponent<thoughtActions>().whichThought = firstThought;
-        clone.GetComponent<Button>().onClick.AddListener(() => clone.GetComponent<thoughtActions>().doesAction());
+        //clone.GetComponent<Button>().onClick.AddListener(() => clone.GetComponent<thoughtActions>().doesAction());
+        }
 
     }  
 

@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class thoughtActions : MonoBehaviour
+public class thoughtActions : MonoBehaviour, IPointerClickHandler
 {
     public GameObject whichThought;
     
 
-    public void doesAction()
+    public void OnPointerClick(PointerEventData eventData)
     {
         Destroy(whichThought);
-        gameObject.GetComponent<Button>().onClick.RemoveListener(() => gameObject.GetComponent<thoughtActions>().doesAction());
         Destroy(this);
+        //Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
     }
 
-    
+
 
 
 }

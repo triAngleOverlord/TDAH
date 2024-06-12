@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         reportsProgress = 6;
         posterProgress = 0;
 
-        thoughtChance = 5;
+        thoughtChance = 20;
         commentChance = 20;
         
 
