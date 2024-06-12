@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         timeRate = 1f;
         spoonsINT = 100;
         moodINT = 10f;
-        day = 1;
+        day = 5;
         momentumRATE = 2f;
         essayProgress = 10;
         lectureProgress = 2;
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
             if (hour == 2)
             {
                 hour = 0;
-                day++;
+                day--;
                 dayUI.text = new string(day.ToString());
                 goToBed("It's getting late. Let's sleep and continue tomorrow.");
             }
@@ -369,9 +369,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator sleeping()
     {
-        day += 1;
-        if (day == 2)
+        if (day == 4)
             addPoster();
+        else if (day ==0)
+            //endScreen
         thoughtChance += 2;
         dayUI.text = new string(day.ToString());
         lookingAround(false);

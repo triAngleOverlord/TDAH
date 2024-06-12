@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,7 +62,30 @@ public class actionButtons : MonoBehaviour
         }
     }
 
+    public void snooze()
+    {
+        GameManager.spoonsINT += spoonCost;
+        GameManager.minute += timeCost;
+        GameManager.moodINT += moodCost;
+        GameManager.Instance.sleepCanvas.SetActive(true);
+        GameManager.Instance.sleepCanvas.GetComponentInChildren<Animator>().Play("dimToBlack");
+        GameManager.Instance.sleepCanvas.GetComponentInChildren<TextMeshProUGUI>().text = new string("I'll get up in a few minutes");
+        StartCoroutine(napTime());
+    }
 
+    public IEnumerator napTime()
+    {
+        GetComponent<Animator>().Play("inBed");
+        GameManager.Instance.sleepCanvas.SetActive(false);
+        yield return new WaitForSeconds(5);
+
+    }
+
+    public void outOfBed()
+    {
+        GameManager.spoonsINT -= spoonCost;
+        GameManager.moodINT -= moodCost;
+    }
     
 
 }
